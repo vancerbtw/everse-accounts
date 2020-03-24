@@ -11,18 +11,18 @@ const Home = () => (
 
     <main class="flex flex-col h-full">
       <Nav />
-      <div class="flex-grow items-center pt-16 flex flex-col overflow-x-scroll">
+      <div class="items-center pt-16 flex flex-col overflow-x-scroll">
         <div class="flex flex-col w-4/5">
           <span class="text-4xl font-bold pb-3">Our Projects</span>
-          <div class="header w-full h-full mb-12 flex flex-col overflow-hidden shadow-xl transition duration-500 ease-in-out hover:scale-105 transform cursor-pointer flex flex-col" style={{borderRadius: "2rem", height: "28vh", background: "linear-gradient(165deg,#f2801f,#d04032)"}}>
-            <span class="text-4xl font-bold pt-6 pl-6 text-white">Jelbrek.icu</span>
-            <button class="bg-gray-200 transition duration-500 ease-in-out hover:scale-110 transform text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center justify-between ml-6 mt-1" style={{borderRadius: "0.5rem", width: "15%"}}>
+          <div class="header w-full h-full mb-8 flex flex-col overflow-hidden shadow-xl transition duration-500 ease-in-out hover:scale-105 transform flex flex-col" style={{borderRadius: "2rem", height: "16vh", background: "linear-gradient(165deg,#f2801f,#d04032)"}}>
+            <span class="text-4xl font-bold pt-2 pl-6 text-white">Jelbrek.icu</span>
+            <button class="bg-gray-200 transition duration-500 ease-in-out hover:scale-110 transform text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center justify-between ml-6 mt-1" style={{borderRadius: "0.5rem", width: "10rem"}} onClick={() => window.location = "https://jelbrek.icu"}>
               <span>Available Now</span>
               <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path></svg>
             </button>
           </div>
-          <div class="header w-full h-full shadow-xl transition duration-500 ease-in-out hover:scale-105 transform cursor-pointer flex flex-col" style={{borderRadius: "2rem", height: "28vh", background: "linear-gradient(165deg,#487cdc,#1d4ca3)"}}>
-            <span class="text-4xl font-bold pt-6 pl-6 text-white">Blaze Repo</span>
+          <div class="header w-full h-full mb-8 shadow-xl transition duration-500 ease-in-out hover:scale-105 transform flex flex-col" style={{borderRadius: "2rem", height: "16vh", background: "linear-gradient(165deg,#487cdc,#1d4ca3)"}}>
+            <span class="text-4xl font-bold pt-2 pl-6 text-white">Blaze Repo</span>
             <span class="text-2xl font-medium pl-6 text-white">Coming Soon</span>
           </div>
         </div>
