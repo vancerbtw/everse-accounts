@@ -9,7 +9,7 @@ const Home = () => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
-    <main class="flex flex-col h-full">
+    <main class="flex flex-col h-full"> 
       <Nav />
       <div class="items-center pt-16 flex flex-col overflow-x-scroll">
         <div class="flex flex-col w-4/5">
