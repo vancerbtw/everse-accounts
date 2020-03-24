@@ -1,202 +1,40 @@
 import Head from 'next/head'
+import Nav from "../components/Nav"
+import '../styles/index.css'
 
 const Home = () => (
   <div className="container">
     <Head>
-      <title>Create Next App</title>
+      <title>Everse</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
-    <main>
-      <h1 className="title">
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
-      </h1>
-
-      <p className="description">
-        Get started by editing <code>pages/index.js</code>
-      </p>
-
-      <div className="grid">
-        <a href="https://nextjs.org/docs" className="card">
-          <h3>Documentation &rarr;</h3>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a href="https://nextjs.org/learn" className="card">
-          <h3>Learn &rarr;</h3>
-          <p>Learn about Next.js in an interactive course with quizzes!</p>
-        </a>
-
-        <a
-          href="https://github.com/zeit/next.js/tree/master/examples"
-          className="card"
-        >
-          <h3>Examples &rarr;</h3>
-          <p>Discover and deploy boilerplate example Next.js projects.</p>
-        </a>
-
-        <a
-          href="https://zeit.co/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          className="card"
-        >
-          <h3>Deploy &rarr;</h3>
-          <p>
-            Instantly deploy your Next.js site to a public URL with ZEIT Now.
-          </p>
-        </a>
+    <main class="flex flex-col h-full">
+      <Nav />
+      <div class="flex-grow items-center pt-16 flex flex-col overflow-x-scroll">
+        <div class="flex flex-col w-4/5">
+          <span class="text-4xl font-bold pb-3">Our Projects</span>
+          <div class="header w-full h-full mb-12 flex flex-col overflow-hidden shadow-xl transition duration-500 ease-in-out hover:scale-105 transform cursor-pointer flex flex-col" style={{borderRadius: "2rem", height: "28vh", background: "linear-gradient(165deg,#f2801f,#d04032)"}}>
+            <span class="text-4xl font-bold pt-6 pl-6 text-white">Jelbrek.icu</span>
+            <button class="bg-gray-200 transition duration-500 ease-in-out hover:scale-110 transform text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center justify-between ml-6 mt-1" style={{borderRadius: "0.5rem", width: "15%"}}>
+              <span>Available Now</span>
+              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path></svg>
+            </button>
+          </div>
+          <div class="header w-full h-full shadow-xl transition duration-500 ease-in-out hover:scale-105 transform cursor-pointer flex flex-col" style={{borderRadius: "2rem", height: "28vh", background: "linear-gradient(165deg,#487cdc,#1d4ca3)"}}>
+            <span class="text-4xl font-bold pt-6 pl-6 text-white">Blaze Repo</span>
+            <span class="text-2xl font-medium pl-6 text-white">Coming Soon</span>
+          </div>
+        </div>
       </div>
+      {/* <div class="flex flex-col-reverse text-center py-4 px-4 h-screen w-screen" style={{position: "absolute"}}>
+        <div class="p-2 items-center text-indigo-100 leading-none rounded-full flex inline-flex discord-alert mr-8 ml-8" style={{backgroundColor: "rgb(4, 162, 146)"}} role="alert" onClick={() => window.location = "https://discord.gg/wBjy7Gb"}>
+          <span class="flex rounded-full  uppercase px-2 py-1 text-xs font-bold mr-3" style={{backgroundColor: "#017569"}}>New</span>
+          <span class="font-semibold mr-2 text-left flex-auto">Join our new Discord!</span>
+          <svg class="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
+        </div>
+      </div> */}
     </main>
-
-    <footer>
-      <a
-        href="https://zeit.co?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Powered by <img src="/zeit.svg" alt="ZEIT Logo" />
-      </a>
-    </footer>
-
-    <style jsx>{`
-      .container {
-        min-height: 100vh;
-        padding: 0 0.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-
-      main {
-        padding: 5rem 0;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-
-      footer {
-        width: 100%;
-        height: 100px;
-        border-top: 1px solid #eaeaea;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      footer img {
-        margin-left: 0.5rem;
-      }
-
-      footer a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .title a {
-        color: #0070f3;
-        text-decoration: none;
-      }
-
-      .title a:hover,
-      .title a:focus,
-      .title a:active {
-        text-decoration: underline;
-      }
-
-      .title {
-        margin: 0;
-        line-height: 1.15;
-        font-size: 4rem;
-      }
-
-      .title,
-      .description {
-        text-align: center;
-      }
-
-      .description {
-        line-height: 1.5;
-        font-size: 1.5rem;
-      }
-
-      code {
-        background: #fafafa;
-        border-radius: 5px;
-        padding: 0.75rem;
-        font-size: 1.1rem;
-        font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-          DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-      }
-
-      .grid {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-
-        max-width: 800px;
-        margin-top: 3rem;
-      }
-
-      .card {
-        margin: 1rem;
-        flex-basis: 45%;
-        padding: 1.5rem;
-        text-align: left;
-        color: inherit;
-        text-decoration: none;
-        border: 1px solid #eaeaea;
-        border-radius: 10px;
-        transition: color 0.15s ease, border-color 0.15s ease;
-      }
-
-      .card:hover,
-      .card:focus,
-      .card:active {
-        color: #0070f3;
-        border-color: #0070f3;
-      }
-
-      .card h3 {
-        margin: 0 0 1rem 0;
-        font-size: 1.5rem;
-      }
-
-      .card p {
-        margin: 0;
-        font-size: 1.25rem;
-        line-height: 1.5;
-      }
-
-      @media (max-width: 600px) {
-        .grid {
-          width: 100%;
-          flex-direction: column;
-        }
-      }
-    `}</style>
-
-    <style jsx global>{`
-      html,
-      body {
-        padding: 0;
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-          Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-    `}</style>
   </div>
 )
 
