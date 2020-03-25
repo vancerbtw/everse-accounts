@@ -39,8 +39,8 @@ const Home = () => (
                 <h1 className="text-4xl font-bold pb-3">Our Founders</h1>
                 <div className={"flex flex-row flex-wrap justify-around items-center"}>
                     <Member image={"/neoney.png"} username={"neoney"} discord={"neoney#0847"} twitter={"@neoney_"} reddit={"u/neoney"}/>
-                    <Member image={"/raizo.png"} username={"raizo"} discord={"neoney#0847"} twitter={"@yvngraizo"} reddit={"u/iraizo"}/>
-                    <Member image={"/vance.jpg"} username={"VancerBTW"} discord={"neoney#0847"} twitter={"@vancerbtw"} reddit={"u/vancerbtw"}/>
+                    <Member image={"/raizo.png"} username={"raizo"} discord={"raizo#0001"} twitter={"@yvngraizo"} reddit={"u/iraizo"}/>
+                    <Member image={"/vance.jpg"} username={"VancerBTW"} discord={"VancerBTW#3505"} twitter={"@vancerbtw"} reddit={"u/vancerbtw"}/>
                 </div>
             </div>
         </div>
