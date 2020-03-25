@@ -1,5 +1,5 @@
-import Nav from "../components/Nav"
-import '../styles/index.css'
+import Nav from "../components/Nav";
+import Member from "../components/Member";
 import React from "react";
 
 const Home = () => (
@@ -7,17 +7,15 @@ const Home = () => (
         <Nav/>
         <div className="items-center pt-16 flex flex-col overflow-x-scroll">
             <div className="flex flex-col w-4/5">
-                <span className="text-4xl font-bold pb-3">Our Projects</span>
+                <h1 className="text-4xl font-bold pb-3">Our Projects</h1>
                 <div
-                    className="header w-full h-full mb-8 flex flex-col overflow-hidden shadow-xl transition duration-500 ease-in-out hover:scale-105 transform flex flex-col"
+                    className="rounded-xl px-6 py-2 header w-full mb-8 flex flex-col overflow-hidden shadow-xl transition duration-500 ease-in-out hover:scale-105 transform flex flex-col"
                     style={{
-                        borderRadius: "2rem",
-                        height: "16vh",
                         background: "linear-gradient(165deg,#f2801f,#d04032)"
                     }}>
-                    <span className="text-4xl font-bold pt-2 pl-6 text-white">Jelbrek.icu</span>
+                    <span className="text-4xl font-bold text-white">Jelbrek.icu</span>
                     <button
-                        className="bg-gray-200 transition duration-500 ease-in-out hover:scale-110 transform text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center justify-between ml-6 mt-1"
+                        className="bg-gray-200 transition duration-500 ease-in-out hover:scale-110 transform text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center justify-between mt-1"
                         style={{borderRadius: "0.5rem", width: "10rem"}}
                         onClick={() => window.location.href = "https://jelbrek.icu"}>
                         <span>Available Now</span>
@@ -29,24 +27,23 @@ const Home = () => (
                     </button>
                 </div>
                 <div
-                    className="header w-full h-full mb-8 shadow-xl transition duration-500 ease-in-out hover:scale-105 transform flex flex-col"
+                    className="rounded-xl px-6 py-2 header w-full mb-8 shadow-xl transition duration-500 ease-in-out hover:scale-105 transform flex flex-col"
                     style={{
-                        borderRadius: "2rem",
-                        height: "16vh",
                         background: "linear-gradient(165deg,#487cdc,#1d4ca3)"
                     }}>
-                    <span className="text-4xl font-bold pt-2 pl-6 text-white">Blaze Repo</span>
-                    <span className="text-2xl font-medium pl-6 text-white">Coming Soon</span>
+                    <span className="text-4xl font-bold text-white">Blaze Repo</span>
+                    <span className="text-2xl font-medium text-white">Coming Soon</span>
+                </div>
+            </div>
+            <div className="flex flex-col w-4/5 mb-8">
+                <h1 className="text-4xl font-bold pb-3">Our Founders</h1>
+                <div className={"flex flex-row flex-wrap justify-around items-center"}>
+                    <Member image={"/neoney.png"} username={"neoney"} discord={"neoney#0847"} twitter={"@neoney_"} reddit={"u/neoney"}/>
+                    <Member image={"/raizo.png"} username={"raizo"} discord={"neoney#0847"} twitter={"@yvngraizo"} reddit={"u/iraizo"}/>
+                    <Member image={"/vance.jpg"} username={"VancerBTW"} discord={"neoney#0847"} twitter={"@vancerbtw"} reddit={"u/vancerbtw"}/>
                 </div>
             </div>
         </div>
-        {/* <div className="flex flex-col-reverse text-center py-4 px-4 h-screen w-screen" style={{position: "absolute"}}>
-        <div className="p-2 items-center text-indigo-100 leading-none rounded-full flex inline-flex discord-alert mr-8 ml-8" style={{backgroundColor: "rgb(4, 162, 146)"}} role="alert" onClick={() => window.location = "https://discord.gg/wBjy7Gb"}>
-          <span className="flex rounded-full  uppercase px-2 py-1 text-xs font-bold mr-3" style={{backgroundColor: "#017569"}}>New</span>
-          <span className="font-semibold mr-2 text-left flex-auto">Join our new Discord!</span>
-          <svg className="fill-current opacity-75 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"/></svg>
-        </div>
-      </div> */}
     </main>
   );
 

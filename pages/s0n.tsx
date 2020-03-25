@@ -1,5 +1,4 @@
 import Nav from "../components/Nav"
-import '../styles/index.css'
 import React from "react";
 
 const Home = () => (
