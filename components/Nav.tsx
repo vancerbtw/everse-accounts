@@ -62,7 +62,7 @@ class Nav extends React.Component {
             </defs>
             <path id="ED" className="cls-1" d="M195.862,341.461H100.636V273.979h88.6V228.514h-88.6V171.057h95.226V125.592H45.148V387.283H195.862V341.461ZM432.136,159.422q-35.442-33.829-99.522-33.83H250.455V387.283h74.1q69.448,0,106.234-34.367t36.784-98.984Q467.577,193.253,432.136,159.422ZM329.75,341.461H305.944v-170.4h29.534q74.462,0,74.462,84.307,0,86.1-80.19,86.1h0Z"/>
           </svg>
-          <span className="font-medium text-xl tracking-tight">Enverse Devs</span>
+          <span className="font-medium text-xl tracking-tight">Everse Devs</span>
         </div>
         <div className="block lg:hidden">
           <button className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white" onClick={() => {
