@@ -28,8 +28,7 @@
     "react-icons": "^3.9.0",
     "react-window-size": "^1.2.2",
     "tailwindcss": "^1.2.0",
-    "typescript": "^3.8.3",
-    "vhost": "^3.0.2"
+    "typescript": "^3.8.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.3",
