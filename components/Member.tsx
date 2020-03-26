@@ -7,6 +7,7 @@ interface MemberProps {
     discord?: string;
     twitter?: string;
     reddit?: string;
+    founder?: boolean
 }
 
 export default class Member extends React.Component<MemberProps> {
@@ -14,7 +15,10 @@ export default class Member extends React.Component<MemberProps> {
         return (
             <div className={"mb-4 px-6 py-3 rounded-xl shadow-lg flex flex-col items-center transition duration-500 ease-in-out hover:scale-110 transform"}>
                 <img className={"h-16 w-16 rounded-full mb-2"} alt={`${this.props.username}'s avatar`} src={this.props.image}/>
-                <h3 className={"font-semibold text-2xl mb-3"}>{this.props.username}</h3>
+                <h3 className={"font-semibold text-2xl"}>{this.props.username}</h3>
+                { this.props.founder ? (
+                    <h6 className={"font-semibold text-sm text-gray-800 mb-3"}>Founder</h6>
+                ) : null }
                 <div className={"flex flex-row justify-around items-center"}>
                     {
                         this.props.discord ? (

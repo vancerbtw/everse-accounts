@@ -35,12 +35,13 @@ const Home = () => (
                     <span className="text-2xl font-medium text-white">Coming Soon</span>
                 </div>
             </div>
-            <div className="flex flex-col w-4/5 mb-8">
-                <h1 className="text-4xl font-bold pb-3">Our Founders</h1>
+            <div className="flex flex-wrap flex-col w-4/5 mb-8">
+                <h1 className="text-4xl font-bold pb-3">Devlopers</h1>
                 <div className={"flex flex-row flex-wrap justify-around items-center"}>
-                    <Member image={"/neoney.png"} username={"neoney"} discord={"neoney#0847"} twitter={"@neoney_"} reddit={"u/neoney"}/>
-                    <Member image={"/raizo.png"} username={"raizo"} discord={"raizo#0001"} twitter={"@yvngraizo"} reddit={"u/iraizo"}/>
-                    <Member image={"/vance.jpg"} username={"VancerBTW"} discord={"VancerBTW#3505"} twitter={"@vancerbtw"} reddit={"u/vancerbtw"}/>
+                    <Member image={"/neoney.png"} username={"neoney"} discord={"neoney#0847"} twitter={"@neoney_"} reddit={"u/neoney"} founder={true}/>
+                    <Member image={"/raizo.png"} username={"raizo"} discord={"raizo#0001"} twitter={"@yvngraizo"} reddit={"u/iraizo"} founder={true}/>
+                    <Member image={"/vance.jpg"} username={"VancerBTW"} discord={"VancerBTW#3505"} twitter={"@vancerbtw"} reddit={"u/vancerbtw"} founder={true}/>
+                    <Member image={"/vance.jpg"} username={"MegaDev"} discord={"coldhart#1337"} twitter={"@omegaluldev"} reddit={"u/ImAColdHart"} founder={false}/>
                 </div>
             </div>
         </div>
