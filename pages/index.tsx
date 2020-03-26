@@ -41,7 +41,7 @@ const Home = () => (
                     <Member image={"/neoney.png"} username={"neoney"} discord={"neoney#0847"} twitter={"@neoney_"} reddit={"u/neoney"} founder={true}/>
                     <Member image={"/raizo.png"} username={"raizo"} discord={"raizo#0001"} twitter={"@yvngraizo"} reddit={"u/iraizo"} founder={true}/>
                     <Member image={"/vance.jpg"} username={"VancerBTW"} discord={"VancerBTW#3505"} twitter={"@vancerbtw"} reddit={"u/vancerbtw"} founder={true}/>
-                    <Member image={"/vance.jpg"} username={"MegaDev"} discord={"coldhart#1337"} twitter={"@omegaluldev"} reddit={"u/ImAColdHart"} founder={false}/>
+                    <Member image={"/omegaDev.jpg"} username={"MegaDev"} discord={"coldhart#1337"} twitter={"@omegaluldev"} reddit={"u/ImAColdHart"} founder={false}/>
                 </div>
             </div>
         </div>
