@@ -40,25 +40,55 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 var express_1 = __importDefault(require("express"));
-var next_1 = __importDefault(require("next"));
 var body_parser_1 = __importDefault(require("body-parser"));
-var index_1 = __importDefault(require("./Accounts/index"));
+var bcrypt_1 = __importDefault(require("bcrypt"));
+var pg_1 = __importDefault(require("../db/pg"));
 var dev = process.env.NODE_ENV === "development";
-var nextApp = next_1["default"]({ dev: dev });
-var handle = nextApp.getRequestHandler();
 var app = express_1["default"]();
 app.set('trust proxy', true);
 app.use(body_parser_1["default"].json());
 app.use(body_parser_1["default"].urlencoded({ extended: true }));
-nextApp.prepare().then(function () { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        app.get('*', function (req, res) {
-            return handle(req, res);
-        });
-        index_1["default"].listen(3002);
-        app.listen(process.env.PORT || 3001, function () {
-            console.log("Listening on localhost:" + (process.env.PORT || 3001));
-        });
-        return [2 /*return*/];
+app.post('/register', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var users, _a, _b, _c, e_1;
+    return __generator(this, function (_d) {
+        switch (_d.label) {
+            case 0:
+                if (!req.body.username || !req.body.email || !req.body.password1 || !req.body.password2)
+                    return [2 /*return*/, res.status(400).json({
+                            success: false,
+                            error: "Request is missing parameter"
+                        })];
+                if (req.body.password1 != req.body.password2)
+                    return [2 /*return*/, res.status(400).json({
+                            success: false,
+                            error: "Passwords do not match"
+                        })];
+                _d.label = 1;
+            case 1:
+                _d.trys.push([1, 5, , 6]);
+                return [4 /*yield*/, pg_1["default"]("accounts").select().where({ 'email': req.body.email })];
+            case 2:
+                users = _d.sent();
+                if (users.length > 0)
+                    return [2 /*return*/, res.status(400).json({
+                            success: false,
+                            error: "User is already registered with email"
+                        })];
+                _b = (_a = pg_1["default"]('accounts')).insert;
+                _c = { username: req.body.username, email: req.body.email };
+                return [4 /*yield*/, bcrypt_1["default"].hash(req.body.password1, 10)];
+            case 3: return [4 /*yield*/, _b.apply(_a, [(_c.password = _d.sent(), _c)])];
+            case 4:
+                _d.sent();
+                return [2 /*return*/, res.status(200).json({
+                        success: true
+                    })];
+            case 5:
+                e_1 = _d.sent();
+                console.log(e_1);
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
+        }
     });
 }); });
+exports["default"] = app;

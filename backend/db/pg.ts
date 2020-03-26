@@ -1,38 +1,37 @@
-require('dotenv').config()
-const libpg = require('pg');
+import libpg from "pg";
+import knex from "knex";
+import { config as dotenvConfig } from "dotenv";
+dotenvConfig();
 libpg.defaults.ssl = true;
-libpg.defaults.rejectUnauthorized = false
-
-const pg = require('knex')({
+const pg = knex({
   client: 'pg',
   connection: {
     user: process.env.DB_USER,
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
     password: process.env.DB_PASS,
-    port: process.env.DB_PORT,
-    ssl: true,
-    rejectUnauthorized: false
+    port: Number(process.env.DB_PORT),
+    ssl: true
   }
 });
 
 pg.schema.createTable("accounts", table => {
-  table.increments('id')
+  table.increments('id');
 
-  table.string('username')
+  table.string('username');
 
-  table.string('email')
-  table.unique('email')
+  table.string('email');
+  table.unique(['email']);
 
-  table.string('password')
+  table.string('password');
 
-  table.boolean('is_admin').defaultTo(false)
-  table.boolean('verified').defaultTo(false)
-  table.string('email_token').defaultTo(Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15))
-  table.boolean('disabled').defaultTo(false)
+  table.boolean('is_admin').defaultTo(false);
+  table.boolean('verified').defaultTo(false);
+  table.string('email_token').defaultTo(Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15));
+  table.boolean('disabled').defaultTo(false);
   table.timestamp('created_at').defaultTo(pg.fn.now())
 }).then(() => {
-  console.log('Creating accounts table')
-})
+  console.log('Creating accounts table');
+});
 
 export default pg
