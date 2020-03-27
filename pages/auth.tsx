@@ -1,5 +1,4 @@
 import Nav from "../components/Nav";
-import Member from "../components/Member";
 import React from "react";
 
 const Auth = () => (

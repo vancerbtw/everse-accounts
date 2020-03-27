@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    transition: text 300ms ease-out;
+}
+
 .container {
     max-width: 100vw;
     max-height: 100vh;
