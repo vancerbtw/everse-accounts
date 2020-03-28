@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Everse OATH</title>
+</head>
+
+<body>
+    Welcome to the Everse OATH
+    <br>
+    <br> Scope
+    <br>
+    <input id="profile.username" type="checkbox"> Username
+    <br>
+    <input id="profile.picture" type="checkbox"> Profile Picture
+    <br>
+    <input id="profile.name" type="checkbox"> Name
+    <br>
+    <input id="profile.email" type="checkbox"> Email
+    <br>
+    <br>
+    <label for="url">URL</label>
+    <input type="text" id="url">
+    <br>
+    <br>
+    <button onclick="genToken()">Genorate Token</button>
+
+    <br>
+    <br> JWT TOKEN:
+    <br>
+    <p style="max-width: 50%;" id="token"></p>
+</body>
+<script>
+    function genToken() {
+        let obj = {
+            url: document.getElementById("url").value,
+            scope: []
+        }
+        document.getElementById("profile.username").checked ? obj.scope.push("profile.username") : ""
+        document.getElementById("profile.name").checked ? obj.scope.push("profile.name") : ""
+        document.getElementById("profile.picture").checked ? obj.scope.push("profile.picture") : ""
+        document.getElementById("profile.email").checked ? obj.scope.push("profile.email") : ""
+        document.getElementById("token").innerHTML = httpGet(`/oauth/v1/gen/` + btoa(JSON.stringify(obj)))
+    }
+
+    function httpGet(theUrl) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", theUrl, false); // false for synchronous request
+        xmlHttp.send(null);
+        return xmlHttp.responseText;
+    }
+</script>
+
+</html>
