@@ -1,8 +1,8 @@
-import Head from 'next/head'
+import Head from 'next/head';
 
 class Home extends React.Component {
   render() {
-    return <div>test</div>
+    return <div className={"h-screen w-screen bg:gray-100"}>test</div>
   }
 }
 

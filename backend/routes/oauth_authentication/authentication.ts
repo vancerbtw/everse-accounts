@@ -6,10 +6,6 @@ export const oauth2 = express.Router();
 
 // https://accounts.everse.dev/api/oauth2/authorize?client_id=157730590492196864&scope=linked_services%20email&redirect_uri=https%3A%2F%2Fblazerepo.com%2Fauth%2Feverse%2Fcallback
 
-oauth2.post('authorize', async (req, res) => {
-
-})
-
 oauth2.post('/authorize/verify', async (req, res) => {  
   const client_id = req.body.client_id;
   if (!client_id) {
@@ -97,11 +93,8 @@ oauth2.post('/authorize/verify', async (req, res) => {
   }
 });
 
-oauth2.get("/")
-
 //this is a temporary route until developer portal is in place
 oauth2.get("/get/token/:client_id", async (req, res) => {
-
   const applications = await pg("oauth_applications").where({id: req.params.client_id });
 
   if (applications.length <= 0) {
@@ -119,4 +112,4 @@ oauth2.get("/get/token/:client_id", async (req, res) => {
       client_id: application.id
     }, process.env.JWT_SECRET)
   });
-})
+});
