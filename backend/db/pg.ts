@@ -35,16 +35,15 @@ pg.schema.createTable("accounts", table => {
 });
 
 pg.schema.createTable("oauth_applications", table => {
-  table.increments('id');
+  table.bigIncrements('id');
 
   table.foreign('owner_id')
   .references('id')
   .inTable('accounts');
 
-  table.specificType('endpoints', 'jsonb[]');
-  table.specificType('domains', 'jsonb[]');
+  table.specificType('redirect_uris', 'text ARRAY');
   
-  table.specificType('scopes', 'jsonb[]');
+  table.specificType('scopes', 'text ARRAY');
 
   table.boolean('disabled').defaultTo(false);
   table.timestamp('created_at').defaultTo(pg.fn.now());
