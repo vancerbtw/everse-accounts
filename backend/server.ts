@@ -19,7 +19,7 @@ nextApp.prepare().then(async () => {
     app.use("/api/oauth2", oauth2);
     app.use("/auth", localAuth);
 
-    app.get(['/', '/login'], (req, res) => {
+    app.get(['/oauth2/authorize', '/', '/_next/*'], (req, res) => {
         return handle(req, res);
     });
 

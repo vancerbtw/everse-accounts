@@ -1,4 +1,5 @@
 import express from 'express';
+import pg from '../../db/pg';
 
 export const localAuth = express.Router();
 
