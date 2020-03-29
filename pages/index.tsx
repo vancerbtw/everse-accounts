@@ -6,6 +6,9 @@ import React from "react";
 const Home = () => (
     <main className="flex flex-col h-full">
         <Nav/>
+        <div className={"bg-brand dark:bg-gray-900 transition-colors ease-in-out duration-500 w-full flex flex-col items-center justify-center p-12 text-white"}>
+            <h1 className={"text-3xl"}>Everse Development</h1>
+        </div>
         <div className="items-center pt-16 flex flex-col dark:bg-black dark:text-white transition-colors ease-in-out duration-300">
             <div className="flex flex-col w-4/5">
                 <h1 className="text-4xl font-bold pb-3">Our Projects</h1>
@@ -39,10 +42,9 @@ const Home = () => (
             <div className="flex flex-wrap flex-col w-4/5 mb-8">
                 <h1 className="text-4xl font-bold pb-3">Developers</h1>
                 <div className={"flex flex-row flex-wrap justify-around items-center"}>
-                    <Member image={"/neoney.png"} username={"neoney"} discord={"neoney#0847"} twitter={"@neoney_"} reddit={"u/neoney"} customText={"Founder"}/>
-                    <Member image={"/raizo.png"} username={"raizo"} discord={"raizo#0001"} twitter={"@yvngraizo"} reddit={"u/iraizo"} customText={"Founder"}/>
-                    <Member image={"/vance.jpg"} username={"VancerBTW"} discord={"VancerBTW#3505"} twitter={"@vancerbtw"} reddit={"u/vancerbtw"} customText={"Founder"}/>
-                    <Member image={"/MegaDev.jpg"} username={"MegaDev"} discord={"coldhart#1337"} twitter={"@omegaluldev"} reddit={"u/ImAColdHart"} customText={"Developer"}/>
+                    <Member image={"/neoney-64.webp"} alt-image={"/neoney.png"} username={"neoney"} discord={"neoney#0847"} twitter={"@neoney_"} reddit={"u/neoney"} customText={"Founder"}/>
+                    <Member image={"/raizo-64.webp"} alt-image={"/raizo.png"} username={"raizo"} discord={"raizo#0001"} twitter={"@yvngraizo"} reddit={"u/iraizo"} customText={"Founder"}/>
+                    <Member image={"/vance-64.webp"} alt-image={"/vance.jpg"} username={"VancerBTW"} discord={"VancerBTW#3505"} twitter={"@vancerbtw"} reddit={"u/vancerbtw"} customText={"Founder"}/>
                 </div>
             </div>
             <Footer/>

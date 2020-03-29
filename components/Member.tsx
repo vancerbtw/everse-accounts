@@ -3,6 +3,7 @@ import { FaDiscord, FaTwitter, FaRedditAlien } from "react-icons/fa";
 
 interface MemberProps {
     image: string;
+    "alt-image": string;
     username: string;
     discord?: string;
     twitter?: string;
@@ -13,8 +14,8 @@ interface MemberProps {
 export default class Member extends React.Component<MemberProps> {
     render() {
         return (
-            <div className={"mb-4 px-6 py-3 bg-triad dark:bg-gray-900 rounded-xl shadow-xl flex flex-col items-center"}>
-                <img className={"h-16 w-16 rounded-full mb-2"} alt={`${this.props.username}'s avatar`} src={this.props.image}/>
+            <div className={"mx-2 mb-4 px-6 py-3 bg-triad dark:bg-gray-900 rounded-xl shadow-xl flex flex-col items-center"}>
+                <img className={"h-16 w-16 rounded-full mb-2"} alt={`${this.props.username}'s avatar`} src={this.props.image} onError={e => e.currentTarget.src = this.props["alt-image"]}/>
                 <h3 className={"font-semibold text-2xl"}>{this.props.username}</h3>
                 <h6 className={"font-semibold text-sm text-gray-800 dark:text-gray-400 mb-3"}>{this.props.customText}</h6>
                 <div className={"flex flex-row justify-around items-center"}>

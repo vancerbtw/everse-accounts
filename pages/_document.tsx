@@ -17,7 +17,7 @@ export default class MyDocument extends Document {
                     <link rel="apple-touch-icon" href="/favicon.ico"/>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
-                <body className={"dark:bg-black dark:text-white"}>
+                <body className={"dark:bg-black dark:text-white font-sans"}>
                     <Main/>
                     <NextScript/>
                 </body>
