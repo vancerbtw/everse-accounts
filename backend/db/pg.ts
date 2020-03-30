@@ -37,6 +37,8 @@ pg.schema.createTable("accounts", table => {
 pg.schema.createTable("oauth_applications", table => {
   table.bigIncrements('id');
 
+  table.string('name');
+
   table.foreign('owner_id')
   .references('id')
   .inTable('accounts');

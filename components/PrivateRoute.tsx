@@ -30,7 +30,6 @@ export function PrivateRoute(WrappedComponent: any) {
     };
 
     componentDidMount() {
-      console.log(localStorage.getItem("token"))
       fetch(`${host}/auth/token/verify`, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         headers: {
@@ -39,8 +38,10 @@ export function PrivateRoute(WrappedComponent: any) {
           // 'Content-Type': 'application/x-www-form-urlencoded',
         } // body data type must match "Content-Type" header
       }).then(res => res.json()).then((data) => {
-        console.log(data)
-        if (!data.success) return Router.push('/login');
+        if (!data.success) {
+          localStorage.setItem("token", "");
+          return Router.push('/login');
+        }
         this.setState({
           user: data
         });
@@ -51,7 +52,7 @@ export function PrivateRoute(WrappedComponent: any) {
       //lets render the component were wrapping with this privateRoute
       const {...propsWithoutAuth } = this.props;
       if (this.state.user) {
-        return <WrappedComponent user={this.state.user} query={new URLSearchParams(window.location.search)} {...propsWithoutAuth} />;
+        return <WrappedComponent user={this.state.user} querys={new URLSearchParams(window.location.search)} {...propsWithoutAuth} />;
       } else {
         return <div></div>
       }

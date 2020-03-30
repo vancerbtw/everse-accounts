@@ -66,8 +66,6 @@ oauth2.post('/authorize/verify', async (req, res) => {
     }
   }
 
-  console.log(application.redirect_uris)
-
   if (!application.redirect_uris.includes(redirect_uri)) {
     //redirect_uri does not match any redirect uris for application
     return res.status(400).json({
@@ -76,21 +74,15 @@ oauth2.post('/authorize/verify', async (req, res) => {
     });
   }
   
-  try {
-    return res.status(200).json({
-      "success": true,
-      "token": jwt.sign({ 
-        scopes,
-        redirect_uri,
-        client_id
-      }, process.env.JWT_SECRET)
-    });
-  } catch {
-    return res.status(400).json({
-      "success": false,
-      "error": "Internal Server Error"
-    });
-  }
+  return res.status(200).json({
+    success: true,
+    application: {
+      name: application.name,
+      redirect_uris: application.redirect_uris,
+      scopes: application.scopes,
+      disabled: application.disabled
+    } 
+  });
 });
 
 //this is a temporary route until developer portal is in place

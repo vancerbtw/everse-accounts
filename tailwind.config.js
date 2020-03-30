@@ -23,6 +23,8 @@ module.exports = {
               "screen-16": "16vh",
               "screen-33": "33vh",
               "screen-50": "50vh",
+              "screen-40": "40vh",
+              "screen-45": "45vh"
           },
           boxShadow: {
               "card": "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
