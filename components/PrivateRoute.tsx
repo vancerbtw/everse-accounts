@@ -40,7 +40,7 @@ export function PrivateRoute(WrappedComponent: any) {
       }).then(res => res.json()).then((data) => {
         if (!data.success) {
           localStorage.setItem("token", "");
-          return Router.push('/login');
+          return Router.push(`/login?redirect=${encodeURIComponent(window.location.href)}`);
         }
         this.setState({
           user: data
@@ -53,9 +53,9 @@ export function PrivateRoute(WrappedComponent: any) {
       const {...propsWithoutAuth } = this.props;
       if (this.state.user) {
         return <WrappedComponent user={this.state.user} querys={new URLSearchParams(window.location.search)} {...propsWithoutAuth} />;
-      } else {
-        return <div></div>
       }
+
+      return <div></div>;
     }
   };
 }

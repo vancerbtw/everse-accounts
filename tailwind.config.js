@@ -14,7 +14,8 @@ module.exports = {
               card: "#e2e1e0",
               discord: "#2C2F33",
               twitter: "#1DA1F2",
-              dim: "#00000010"
+              dim: "#00000010",
+              pastelGreen: "#43b581"
           },
           borderRadius: {
               xl: "2rem",
