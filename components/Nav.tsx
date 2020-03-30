@@ -24,7 +24,7 @@ class Nav extends React.Component {
 
     render() {
         return (
-            <nav className="flex items-center justify-between flex-wrap p-6 h-24 w-full">
+            <nav className="flex items-center justify-between flex-wrap p-6 h-24 w-full bg-gray-600">
                 <div className="flex items-center flex-shrink-0 text-black mr-6 cursor-pointer dark:text-white" onClick={() => window.location.href = "https://accounts.everse.dev"}>
 
                     <svg className="fill-current text-black dark:text-white h-8 w-8 mr-2" xmlns="http://www.w3.org/2000/svg" width="512"

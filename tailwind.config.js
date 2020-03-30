@@ -24,7 +24,12 @@ module.exports = {
               "screen-33": "33vh",
               "screen-50": "50vh",
               "screen-40": "40vh",
-              "screen-45": "45vh"
+              "screen-45": "45vh",
+              "screen-75": "75vh",
+              "percent-110": "110%"
+          },
+          zIndex: {
+              "z--1": "z-index: -1;"
           },
           boxShadow: {
               "card": "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",

@@ -3,13 +3,14 @@ import Router from "next/router";
 import Link from "next/link";
 import host from '../helpers/host';
 import { throws } from "assert";
-import Nav from "../components/Nav";
 import AntiPrivateRoute from "../components/AntiPrivateRoute";
 
-class Login extends React.Component {
+class Register extends React.Component {
   state = {
     email: "",
+    username: "",
     password: "",
+    password1: "",
     error: undefined,
     success: undefined
   };
@@ -21,7 +22,9 @@ class Login extends React.Component {
     // Bind your handler in the constructor to create
     // a single bound function
     this.emailChange = this.emailChange.bind(this);
+    this.usernameChange = this.usernameChange.bind(this);
     this.passwordChange = this.passwordChange.bind(this);
+    this.password1Change = this.password1Change.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   
@@ -38,16 +41,24 @@ class Login extends React.Component {
     this.setState({width: window.innerWidth});
   };
 
+  usernameChange(event: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({username: event.target.value})
+  }
+
   emailChange(event: React.ChangeEvent<HTMLInputElement>) {
     this.setState({email: event.target.value})
+  }
+
+  password1Change(event: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({password1: event.target.value})
   }
 
   passwordChange(event: React.ChangeEvent<HTMLInputElement>) {
     this.setState({password: event.target.value})
   }
 
-  handleSubmit(event: React.FormEvent) {
-    fetch(`${host}/auth/login`, {
+  handleSubmit() {
+    fetch(`${host}/auth/register`, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json'
@@ -55,7 +66,9 @@ class Login extends React.Component {
       },
       body: JSON.stringify({
         email: this.state.email,
-        password: this.state.password
+        username: this.state.username,
+        password1: this.state.password,
+        password2: this.state.password1
       }) // body data type must match "Content-Type" header
     }).then((res) => res.json()).then((data) => {
       if (!data.success) {
@@ -64,11 +77,8 @@ class Login extends React.Component {
         });
         return;
       }
-      this.setState({
-        success: "Logged In"
-      });
       localStorage.setItem("token", data.token || "");
-      Router.push('/');
+      Router.push("/");
     })
     .catch((e) => {
       console.log(e)
@@ -76,7 +86,6 @@ class Login extends React.Component {
         error: "Internal Server Error"
       });
     })
-    event.preventDefault();
   }
 
   render() {
@@ -84,12 +93,11 @@ class Login extends React.Component {
     if (this.state.error) {
       error = <h1 className="text-red">{this.state.error}</h1>
     }
-
     let success;
     if (this.state.success) {
-      error = <h1 className="text-red">{this.state.success}</h1>
+      success = <h1 className="text-red">{this.state.success}</h1>
     }
-    
+
     return (
       <div className="flex flex-col h-screen">
         <div className="flex items-center justify-between flex-wrap p-6 h-24 w-full bg-gray-200">
@@ -107,7 +115,7 @@ class Login extends React.Component {
           <div className="sm:max-w-xl md:max-w-2xl w-full m-auto">
             <div className="flex items-stretch bg-white rounded-lg shadow-lg overflow-hidden border-t-4 border-indigo-500 sm:border-0">
               <div className="flex hidden overflow-hidden relative sm:block w-5/12 md:w-6/12 bg-gray-600 text-gray-300 pb-4 bg-cover bg-center">
-              <video className="w-full h-auto absolute m-0 z--1" autoPlay muted loop src="https://video.twimg.com/ext_tw_video/1244275456330870784/pu/vid/720x720/x7dywQnKfB6VNfV4.mp4?tag=10" />
+              <video className="in-fullscreen w-full h-percent-110 absolute m-0 z--1 top-0 left-0" autoPlay muted loop src="https://video.twimg.com/ext_tw_video/1244275456330870784/pu/vid/720x720/x7dywQnKfB6VNfV4.mp4?tag=10" />
                 <div className="flex-1 absolute top-0 text-white p-5">
                 <svg className="fill-current text-black dark:text-white h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="512"
                          height="512" viewBox="0 0 512 512">
@@ -116,35 +124,29 @@ class Login extends React.Component {
                     </svg>
                 </div>  
                 <div className="flex-1 absolute bottom-0 text-white p-5">
-                  <h3 className="text-4xl font-bold inline-block">Login</h3>
-                  <p className="text-white whitespace-no-wrap">
-                    Welcome back!
-                  </p>
+                  <h3 className="text-3xl font-bold inline-block">Register</h3>
+                  <p className="text-white whitespace-no-wrap">Welcome!</p>
                 </div>
                 <svg className="absolute animate h-full w-4/12 sm:w-2/12 right-0 inset-y-0 fill-current text-white" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
                     <polygon points="0,0 100,100 100,0" />
                 </svg>
               </div>
-              <div className="flex-1 p-6 sm:p-10 sm:py-12 sm:pb-6">
-                <h3 className="text-xl text-gray-700 font-bold mb-6">Login <span className="text-lg text-gray-500 font-normal">to your Everse account</span></h3>
-                <input type="text"  value={this.state.email} onChange={this.emailChange} className="px-3 w-full py-2 bg-gray-200 border border-gray-200 rounded focus:border-gray-400 focus:outline-none focus:bg-white mb-4" placeholder="Username" />
+              <div className="flex-1 p-6 sm:p-10 sm:py-12">
+                <h3 className="text-xl text-gray-700 font-bold mb-6">Register <span className="text-lg text-gray-500 font-normal">for an Everse account</span></h3>
+                  <input type="text"  value={this.state.email} onChange={this.emailChange} className="px-3 w-full py-2 bg-gray-200 border border-gray-200 rounded focus:border-gray-400 focus:outline-none focus:bg-white mb-4" placeholder="Email" />
+                  <input type="text"  value={this.state.username} onChange={this.usernameChange} className="px-3 w-full py-2 bg-gray-200 border border-gray-200 rounded focus:border-gray-400 focus:outline-none focus:bg-white mb-4" placeholder="Username" />
                   <input type="password" value={this.state.password} onChange={this.passwordChange} className="px-3 w-full py-2 bg-gray-200 border border-gray-200 rounded focus:border-gray-400 focus:outline-none focus:bg-white mb-4" placeholder="Password" />
-                
+                  <input type="password" value={this.state.password1} onChange={this.password1Change} className="px-3 w-full py-2 bg-gray-200 border border-gray-200 rounded focus:border-gray-400 focus:outline-none focus:bg-white mb-4" placeholder="Confirm Password" />                
                 <div className="flex flex-wrap items-center">
                   <div className="w-full sm:flex-1">
-                    <input onClick={this.handleSubmit} type="submit" value="Login" className="w-full sm:w-auto bg-indigo-500 text-indigo-100 px-6 py-2 rounded hover:bg-indigo-600 focus:outline-none cursor-pointer transition duration-200 ease-in transform hover:scale-110"/>
+                    <input onClick={this.handleSubmit} type="submit" value="Register" className="w-full sm:w-auto bg-indigo-500 text-indigo-100 px-6 py-2 rounded hover:bg-indigo-600 focus:outline-none cursor-pointer transition duration-200 ease-in transform hover:scale-110" />
                   </div>
                   <div className="text-sm text-gray-500 hover:text-gray-700 pt-4 sm:p-0">
-                    <Link href="/forgot-pw">
-                      <a>Forgot password?</a>
+                    <Link href="/login">
+                      <a>Got an Account?</a>
                     </Link>
                   </div>
                 </div>
-                <div className="text-sm text-gray-500 hover:text-gray-700 pt-4 mt-3 sm:p-0">
-                    <Link href="/register">
-                      <a>Need an Account?</a>
-                    </Link>
-                  </div>
               </div>
             </div>
           </div>
@@ -154,5 +156,5 @@ class Login extends React.Component {
   }
 }
 
-export default AntiPrivateRoute(Login);
+export default AntiPrivateRoute(Register);
 

@@ -26,11 +26,14 @@ localAuth.post('/register', async (req, res) => {
         error: "User is already registered with email"
       });
   
-      await pg('accounts').insert({ username: req.body.username, email: req.body.email, password: await argon2.hash(req.body.password1)});
+      const id = await pg('accounts').insert({ username: req.body.username, email: req.body.email, password: await argon2.hash(req.body.password1)}).returning('id');
   
       return res.status(200).json({
-        success: true
-      })
+        success: true,
+        token: jwt.sign({ 
+          user_id: id
+        }, process.env.JWT_SECRET)
+      });
   
     } catch(e) {
       console.log(e);
@@ -69,7 +72,7 @@ localAuth.post("/login", async (req, res) => {
   try {
     if (await argon2.verify(user.password, password)) {
       // password match
-      return res.status(400).json({
+      return res.status(200).json({
         "success": true,
         "token": jwt.sign({ 
           user_id: user.id
