@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.in-fullscreen {
+  -webkit-animation-fill-mode: none;
+  animation-fill-mode: none;
+  object-fit: fill;
+}
