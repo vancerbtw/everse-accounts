@@ -53,33 +53,6 @@ class Login extends React.Component {
               <p className="font-semibold text-gray-100 m-2 mx-5">{this.state.authenticated ?  "Logout": "Login"}</p>
             </div>
         </div>
-        <div className="flex flex-col flex-grow items-center">
-          <div className="w-4/5 h-64 rounded-xl bg-gray-500 shadow-lg overflow-hidden transition ease-in-out duration-300 transform hover:scale-110 cursor-pointer" style={{
-            background: "url(http://localhost:3001/glitch.png) no-repeat center center fixed", backgroundSize: "cover"
-          }}>
-            <div className="flex flex-col h-full justify-between">
-              <div className="text-white text-3xl font-semibold mt-5 ml-5">Everse Accounts</div>
-              <div className="flex flex-col pl-5 pb-3 bg-gray-900 opacity-75" style={{backdropFilter: "blur(0.8)"}}>
-                <div className="text-white text-2xl font-semibold opacity-100">Dev Portal</div>
-                <div className="text-white text-md font-normal opacity-100">Sign Up Now</div>
-              </div>
-            </div>
-          </div>
-          <hr className=" border-gray-500 shadow-sm w-9/12 mt-8 mb-4"/>
-          <div className="flex flex-col flex-grow items-center w-full">
-            <div className="w-4/5 h-64 rounded-xl bg-gray-500 shadow-lg overflow-hidden transition ease-in-out duration-300 transform hover:scale-110 cursor-pointer" style={{
-              background: "url(http://localhost:3001/everseBanner.png) no-repeat center center fixed", backgroundSize: "cover"
-            }}>
-              <div className="flex flex-col h-full justify-between">
-                <div className="text-white text-3xl font-semibold mt-5 ml-5">Everse Development</div>
-                <div className="flex flex-col pl-5 pb-3 bg-gray-900 opacity-75" style={{backdropFilter: "blur(0.8)"}}>
-                  <div className="text-white text-2xl font-semibold opacity-100">Our Work</div>
-                  <div className="text-white text-md font-normal opacity-100">everse.dev</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
       )
     }

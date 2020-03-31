@@ -20,6 +20,13 @@ interface AuthResponse {
   application?: Oauth2Application;
 };
 
+interface AuthorizeResponse {
+  success: Boolean;
+  error?: string;
+  invalidate?: Boolean;
+  token?: string;
+};
+
 
 
 // the user schema of user that is logged in
@@ -86,13 +93,41 @@ class Authorization extends React.Component<AuthProps, AuthState> {
     //returning if the response is present and the success value of it is false because of error
     let mainView;
 
-    if (!error || !this.state.response?.error) {
+    if (!error || !this.state.response?.error || !this.state.error) {
       buttons = (
         <div className="flex justify-between w-full">
           <div className="sm:w-auto bg-indigo-500 text-indigo-100 px-4 py-2 rounded hover:bg-indigo-600 focus:outline-none cursor-pointer transition duration-200 ease-in transform hover:scale-110 text-base font-medium">
             Cancel
           </div>
-          <div className="sm:w-auto bg-indigo-500 text-indigo-100 px-4 py-2 rounded hover:bg-indigo-600 focus:outline-none cursor-pointer transition duration-200 ease-in transform hover:scale-110 text-base font-medium">
+          <div className="sm:w-auto bg-indigo-500 text-indigo-100 px-4 py-2 rounded hover:bg-indigo-600 focus:outline-none cursor-pointer transition duration-200 ease-in transform hover:scale-110 text-base font-medium" onClick={() => {
+            fetch(`${host}/api/oauth2/authorize`, {
+              method: 'POST', // *GET, POST, PUT, DELETE, etc.
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("token")}` || ""
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: JSON.stringify({
+                client_id: this.props.querys.get("client_id"),
+                redirect_uri: this.props.querys.get("redirect_uri"),
+                scopes: (this.props.querys.get("scopes") as string || "").split(" ")
+              }) // body data type must match "Content-Type" header
+            }).then((res) => res.json()).then((data: AuthorizeResponse) => {
+              if (!data.success) {
+                this.setState({
+                  error: data.error || ""
+                });
+                return;
+              }
+              if (!data.token) {
+                this.setState({
+                  error: "Internal Server Error"
+                });
+                return;
+              }
+              window.location.href = `${this.props.querys.get("redirect_uri") || ""}?code=${data.token || ""}`
+            });
+          }}>
             Authorize
           </div>
         </div>

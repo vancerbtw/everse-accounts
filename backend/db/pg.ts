@@ -53,4 +53,23 @@ pg.schema.createTable("oauth_applications", table => {
   console.log('Creating oauth_applications table');
 });
 
+pg.schema.createTable("applications_users", table => {
+  table.bigIncrements('id');
+
+  table.integer('user_id', 11).unsigned()
+  .references('id')
+  .inTable('accounts');
+
+
+  table.integer('oauth_id', 11).unsigned()
+  .references('id')
+  .inTable('oauth_applications');
+
+  table.specificType('scopes', 'text ARRAY');
+
+  table.timestamp('created_at').defaultTo(pg.fn.now());
+}).then(() => {
+  console.log('Creating oauth_applications table');
+});
+
 export default pg
