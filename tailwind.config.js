@@ -29,6 +29,15 @@ module.exports = {
               "screen-75": "75vh",
               "percent-110": "110%"
           },
+          height: {
+            "screen-16": "16vh",
+            "screen-33": "33vh",
+            "screen-50": "50vh",
+            "screen-40": "40vh",
+            "screen-45": "45vh",
+            "screen-75": "75vh",
+            "percent-110": "110%"
+          },
           zIndex: {
               "z--1": "z-index: -1;"
           },

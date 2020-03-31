@@ -112,7 +112,7 @@ class Login extends React.Component {
           <div className="sm:max-w-xl md:max-w-2xl w-full m-auto">
             <div className="flex items-stretch bg-white rounded-lg shadow-lg overflow-hidden border-t-4 border-indigo-500 sm:border-0">
               <div className="flex hidden overflow-hidden relative sm:block w-5/12 md:w-6/12 bg-gray-600 text-gray-300 pb-4 bg-cover bg-center">
-              <video className="w-full h-auto absolute m-0 z--1" autoPlay muted loop src="https://video.twimg.com/ext_tw_video/1244275456330870784/pu/vid/720x720/x7dywQnKfB6VNfV4.mp4?tag=10" />
+              <video className="h-percent-110 absolute m-0 z--1 object-fill" autoPlay muted loop src="https://video.twimg.com/ext_tw_video/1244275456330870784/pu/vid/720x720/x7dywQnKfB6VNfV4.mp4?tag=10" />
                 <div className="flex-1 absolute top-0 text-white p-5">
                 <svg className="fill-current text-black dark:text-white h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="512"
                          height="512" viewBox="0 0 512 512">
