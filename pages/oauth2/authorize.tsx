@@ -88,7 +88,7 @@ class Authorization extends React.Component<AuthProps, AuthState> {
     //making sure all valid query parameters are present in url of request
     if (!this.props.querys.get("client_id"))  error = "Missing Client ID";
     if (!this.props.querys.get("redirect_uri")) error = "Missing Redirect URI";
-    if (this.props.querys.get("scopes")) error = "Missing Client ID";
+    if (!this.props.querys.get("scopes")) error = "Missing Scopes";
     
     //returning if the response is present and the success value of it is false because of error
     let mainView;
@@ -100,6 +100,7 @@ class Authorization extends React.Component<AuthProps, AuthState> {
             Cancel
           </div>
           <div className="sm:w-auto bg-indigo-500 text-indigo-100 px-4 py-2 rounded hover:bg-indigo-600 focus:outline-none cursor-pointer transition duration-200 ease-in transform hover:scale-110 text-base font-medium" onClick={() => {
+            console.log(localStorage.getItem("token"))
             fetch(`${host}/api/oauth2/authorize`, {
               method: 'POST', // *GET, POST, PUT, DELETE, etc.
               headers: {
@@ -137,7 +138,7 @@ class Authorization extends React.Component<AuthProps, AuthState> {
     if (this.state.response) {
       let body;
       let title;
-      const err = error || this.state.error;
+      const err = error || this.state.error || this.state.response?.error;
 
       if (this.state.response.error) {
         body = (
@@ -168,14 +169,14 @@ class Authorization extends React.Component<AuthProps, AuthState> {
           <div>
             <h3 className="text-base text-gray-700 font-semibold mt-2">Information<span className="text-sm text-gray-500 font-normal"> being requested</span></h3> 
             <div className="scopes flex flex-col">
-                {this.state.response.application?.scopes.map((scope: string, index: number) => {
+                {(this.state.response?.application?.scopes || []).map((scope: string, index: number) => {
                     const scopeFormat = scope == "email" ? "Account Email": scope == "linked_services" ? "Linked Services": scope == "purchases" ? "Purchases": "";
                     
                     return (
                       <div className="flex flex-row shadow-md rounded-md bg-gray-200 w-11/12 py-2 px-3 my-2 transition duration-200 ease-in transform hover:scale-105 justify-between" key={index}>
                         <div className="text-gray-500 font-medium">{scopeFormat}</div>
                         <div className="bg-pastelGreen rounded-full w-6 h-6 text-gray-400 flex justify-center content-end">
-                          <svg aria-hidden="false" className="icon-1Vf2He w-5 h-5 inline my-auto" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><polyline stroke="currentColor" stroke-width="2" points="3.5 9.5 7 13 15 5"></polyline><svg aria-hidden="false" class="icon-1Vf2He" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><polyline stroke="currentColor" stroke-width="2" points="3.5 9.5 7 13 15 5"></polyline></g><svg aria-hidden="false" class="icon-1Vf2He" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><polyline stroke="currentColor" stroke-width="2" points="3.5 9.5 7 13 15 5"></polyline></g></svg></svg></g><svg aria-hidden="false" class="icon-1Vf2He" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><polyline stroke="currentColor" stroke-width="2" points="3.5 9.5 7 13 15 5"></polyline></g></svg></svg>
+                          <svg aria-hidden="false" className="icon-1Vf2He w-5 h-5 inline my-auto" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><polyline stroke="currentColor" stroke-width="2" points="3.5 9.5 7 13 15 5"></polyline><svg aria-hidden="false" className="icon-1Vf2He" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><polyline stroke="currentColor" stroke-width="2" points="3.5 9.5 7 13 15 5"></polyline></g><svg aria-hidden="false" className="icon-1Vf2He" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><polyline stroke="currentColor" stroke-width="2" points="3.5 9.5 7 13 15 5"></polyline></g></svg></svg></g><svg aria-hidden="false" className="icon-1Vf2He" width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><polyline stroke="currentColor" stroke-width="2" points="3.5 9.5 7 13 15 5"></polyline></g></svg></svg>
                         </div>
                       </div>
                     );

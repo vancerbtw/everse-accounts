@@ -1,5 +1,6 @@
 import Router from 'next/router';
 import Head from 'next/head';
+import React from 'react';
 
 class Home extends React.Component {
   componentDidMount() {

@@ -86,6 +86,7 @@ oauth2.post('/authorize/verify', async (req, res) => {
 });
 
 oauth2.post("/authorize", async (req, res) => {
+  console.log(req.headers.authorization)
   if (!req.headers.authorization) {
     return res.status(400).json({
       "success": false,
@@ -106,8 +107,8 @@ oauth2.post("/authorize", async (req, res) => {
   //here we are going to decode the user's token and validate the user before authenticating service to access user's data.
   
   try {
-    data = jwt.verify(token, process.env.JWT_SECRET); 
-    const users = await pg("accounts").where({id: data.user_id });
+    data = jwt.verify(token, process.env.JWT_SECRET || "") as { user_id: any; } | null
+    const users = await pg("accounts").where({id: data?.user_id || "" });
     if (!users[0]) {
       return res.status(400).json({
         "success": false,
@@ -206,8 +207,8 @@ oauth2.post("/authorize", async (req, res) => {
       return res.status(200).json({
         success: true,
         token: jwt.sign({ 
-          approve_id: id
-        }, process.env.JWT_SECRET)
+          approve_id: id[0] || -1
+        }, process.env.JWT_SECRET || "")
       });
     });
   } catch(e) {
@@ -235,6 +236,6 @@ oauth2.get("/get/token/:client_id", async (req, res) => {
     "success": true,
     "error": jwt.sign({ 
       client_id: application.id
-    }, process.env.JWT_SECRET)
+    }, process.env.JWT_SECRET || "")
   });
 });

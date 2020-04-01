@@ -32,7 +32,7 @@ localAuth.post('/register', async (req, res) => {
         success: true,
         token: jwt.sign({ 
           user_id: id
-        }, process.env.JWT_SECRET)
+        }, process.env.JWT_SECRET || "")
       });
   
     } catch(e) {
@@ -76,7 +76,7 @@ localAuth.post("/login", async (req, res) => {
         "success": true,
         "token": jwt.sign({ 
           user_id: user.id
-        }, process.env.JWT_SECRET)
+        }, process.env.JWT_SECRET || "")
       });
     } else {
       //passwords do not match
@@ -112,8 +112,8 @@ localAuth.post('/token/verify', async (req, res) => {
   const token = req.headers.authorization.split(" ")[1]
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET); 
-    const users = await pg("accounts").where({id: decoded.user_id });
+    const decoded: { user_id?: string } = jwt.verify(token, process.env.JWT_SECRET || "") as {  user_id?: string  }; 
+    const users = await pg("accounts").where({id: decoded.user_id || "" });
     if (!users[0]) {
       return res.status(400).json({
         "success": false,

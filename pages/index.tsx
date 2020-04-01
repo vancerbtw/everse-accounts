@@ -40,7 +40,7 @@ class Login extends React.Component {
     if (this.state.loaded) {
       body = (
         <div className="flex flex-col h-screen">
-        <div className="flex items-center justify-between flex-wrap p-6 h-24 w-full bg-gray-200">
+          <div className="flex items-center justify-between flex-wrap p-6 h-24 w-full bg-gray-200">
             <div className="flex items-center flex-shrink-0 text-black mr-6 cursor-pointer dark:text-gray-600" onClick={() => window.location.href = "https://accounts.everse.dev"}>
                 <svg className="fill-current text-black dark:text-gray-600 h-8 w-8 mr-2" xmlns="http://www.w3.org/2000/svg" width="512"
                       height="512" viewBox="0 0 512 512">
