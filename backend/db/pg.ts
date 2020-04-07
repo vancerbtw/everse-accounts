@@ -159,12 +159,12 @@ pg.schema.createTable("accounts", table => {
 
   table.string("identifier");
 }).createTable("files", table => {
-  table.bigIncrements("id");
+  table.bigIncrements("files_id");
 
   //file upload
   table.integer('file', 11).unsigned();
 
-  //the id of the package in the other table
+  //the id of the package 
   table.string("package");
 
   //developer name
