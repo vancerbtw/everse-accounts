@@ -1,14 +1,19 @@
 import express from "express";
 import next from "next";
 import bodyParser from "body-parser";
-import { localAuth } from "./routes/local_authentication/localAuth";
-import { oauth2 } from "./routes/oauth_authentication/authentication";
-import { resources } from "./routes/oauth_resources/resources";
 import cors from "cors";
 const dev = process.env.NODE_ENV === "development";
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 const app = express();
+
+//route importing
+import { localAuth } from "./routes/local_authentication/localAuth";
+import { oauth2 } from "./routes/oauth_authentication/authentication";
+import { resources } from "./routes/oauth_resources/resources";
+import { payments } from "./routes/payments/Payments";
+import { repo } from "./routes/repo/Repo";
+import pg from "./db/pg";
 
 app.use(cors());
 app.set('trust proxy', true);
@@ -22,6 +27,7 @@ nextApp.prepare().then(async () => {
     app.use("/resources", resources);
     app.use("/api/oauth2", oauth2);
     app.use("/auth", localAuth);
+    app.use("/payments", payments);
 
     app.get(['/oauth2/authorize', '/homeBanner.png', '/glitch.png', '/everseBanner.png', '/forgotBanner.png', '/authorizeBanner.png', '/forgot-pw', '/', '/_next/*', '/login', "/logout", "/register"], (req, res) => {
         return handle(req, res);

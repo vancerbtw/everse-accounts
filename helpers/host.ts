@@ -1,2 +1,1 @@
-const host = "http://localhost:3001"
-export default host;
+export const host = "http://localhost:3001";
