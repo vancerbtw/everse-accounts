@@ -78,6 +78,9 @@ pg.schema.createTable("accounts", table => {
   //images for depiction of package
   table.specificType('images', 'text ARRAY');
 
+  //icon of package
+  table.string('icon');
+
   //if the package is paid
   table.boolean("paid").defaultTo(false);
 
@@ -86,6 +89,8 @@ pg.schema.createTable("accounts", table => {
 
   //if the package is accepted or not
   table.boolean("pending").defaultTo(true);
+
+  table.text("depiction");
 
   table.timestamp('created_at');
 }).createTable("purchases", table => {
@@ -206,8 +211,13 @@ pg.schema.createTable("accounts", table => {
   table.boolean("accepted");
 
   table.boolean("paid");
+
+  table.string("change");
 }).createTable("devices", table => {
   table.bigIncrements("device_id");
+
+  //user assigned name for the device
+  table.string("device_name");
   
   //the hash of the device's udid
   table.string("hash");
@@ -218,6 +228,17 @@ pg.schema.createTable("accounts", table => {
   //the id of the user that the device is linked to
   table.integer("user_id", 11).unsigned();
 
+}).createTable("sessions", table => {
+  table.bigIncrements("session_id");
+
+  //hashed udid
+  table.integer("device_id", 11).unsigned();
+
+  //id of the user
+  table.integer("user_id", 11).unsigned();
+
+  //timestamp
+  table.string("created_at");
 }).then();
 
 export default pg

@@ -21,6 +21,7 @@ export default async function verify(req: Request, res: Response, next: NextFunc
 
   try {
     const decoded: { user_id?: string } = jwt.verify(token, process.env.JWT_SECRET || "") as {  user_id?: string  }; 
+    console.log(decoded.user_id)
     const user = await pg("accounts").where({id: decoded.user_id || "" }).first();
     if (!user) {
       return res.status(400).json({

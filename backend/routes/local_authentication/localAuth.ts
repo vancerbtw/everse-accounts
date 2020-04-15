@@ -31,7 +31,7 @@ localAuth.post('/register', async (req, res) => {
       return res.status(200).json({
         success: true,
         token: jwt.sign({ 
-          user_id: id
+          user_id: id[0]
         }, process.env.JWT_SECRET || "")
       });
   

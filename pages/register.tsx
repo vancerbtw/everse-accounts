@@ -1,7 +1,7 @@
 import React from "react";
 import Router from "next/router";
 import Link from "next/link";
-import host from '../helpers/host';
+import {host} from '../helpers/host';
 import { throws } from "assert";
 import AntiPrivateRoute from "../components/AntiPrivateRoute";
 
@@ -58,7 +58,7 @@ class Register extends React.Component {
   }
 
   handleSubmit() {
-    fetch(`${host}/auth/register`, {
+    fetch(`${host.self}/auth/register`, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json'

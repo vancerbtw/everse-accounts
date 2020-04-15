@@ -1,7 +1,7 @@
 import { NextPageContext } from "next";
 import Router from 'next/router';
 import React, { Component } from "react";
-import host from '../helpers/host';
+import {host} from '../helpers/host';
 
 interface AuthResponse {
   success: Boolean,
@@ -30,7 +30,7 @@ export function PrivateRoute(WrappedComponent: any) {
     };
 
     componentDidMount() {
-      fetch(`${host}/auth/token/verify`, {
+      fetch(`${host.self}/auth/token/verify`, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         headers: {
           'Content-Type': 'application/json',

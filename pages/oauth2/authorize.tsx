@@ -1,5 +1,5 @@
 import React from "react";
-import host from '../../helpers/host';
+import {host} from '../../helpers/host';
 import fetch from 'isomorphic-unfetch';
 import Nav from "../../components/Nav";
 import Link from 'next/link';
@@ -64,7 +64,7 @@ class Authorization extends React.Component<AuthProps, AuthState> {
   }
 
   componentDidMount() {
-    fetch(`${host}/api/oauth2/authorize/verify`, {
+    fetch(`${host.self}/api/oauth2/authorize/verify`, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json'
@@ -101,7 +101,7 @@ class Authorization extends React.Component<AuthProps, AuthState> {
           </div>
           <div className="sm:w-auto bg-indigo-500 text-indigo-100 px-4 py-2 rounded hover:bg-indigo-600 focus:outline-none cursor-pointer transition duration-200 ease-in transform hover:scale-110 text-base font-medium" onClick={() => {
             console.log(localStorage.getItem("token"))
-            fetch(`${host}/api/oauth2/authorize`, {
+            fetch(`${host.self}/api/oauth2/authorize`, {
               method: 'POST', // *GET, POST, PUT, DELETE, etc.
               headers: {
                 'Content-Type': 'application/json',

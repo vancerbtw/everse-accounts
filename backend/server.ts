@@ -12,13 +12,14 @@ import { localAuth } from "./routes/local_authentication/localAuth";
 import { oauth2 } from "./routes/oauth_authentication/authentication";
 import { resources } from "./routes/oauth_resources/resources";
 import { payments } from "./routes/payments/Payments";
-import { repo } from "./routes/repo/Repo";
-import pg from "./db/pg";
+import { device } from "./routes/cydia_authentication/Device";
+import { sessions } from "./routes/cydia_authentication/Sessions";
 
 app.use(cors());
 app.set('trust proxy', true);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('../public'))
 
 //setting up express router routes
 
@@ -28,8 +29,10 @@ nextApp.prepare().then(async () => {
     app.use("/api/oauth2", oauth2);
     app.use("/auth", localAuth);
     app.use("/payments", payments);
+    app.use("/device", device);
+    app.use("/sessions", sessions);
 
-    app.get(['/oauth2/authorize', '/homeBanner.png', '/glitch.png', '/everseBanner.png', '/forgotBanner.png', '/authorizeBanner.png', '/forgot-pw', '/', '/_next/*', '/login', "/logout", "/register"], (req, res) => {
+    app.get(['/device/auth', '/iPhoneX.png', '/oauth2/authorize', '/homeBanner.png', '/glitch.png', '/everseBanner.png', '/forgotBanner.png', '/authorizeBanner.png', '/forgot-pw', '/', '/_next/*', '/login', "/logout", "/register"], (req, res) => {
         return handle(req, res);
     });
 
