@@ -40,4 +40,24 @@ app.post('/register', async (req, res) => {
   }
 });
 
+app.get("/getVerification", async(req, res) => {
+  // get VERIFIED BOOL AND RETURN IT
+});
+app.post("/setVerfication", async(req, res) => {
+  // SQL QUERY IF ACCOUNT EXISTS 
+  // SQL INSERT GENERATED TOKEN AND SET VERIFIED BOOL TO FALSE
+}); 
+
+app.post("/verify", async(req , res) => {
+  if(!req.body.token || !req.body.email) return res.status(400).json({
+    success: false,
+    error: "Request is missing parameter"
+  });
+
+  // SQL QUERY to check if token and email are valid and 
+  // SQL INSERT VERIFY BOOL TO TRUE
+  // SQL DELETE TOKEN
+
+});
+
 export default app;
