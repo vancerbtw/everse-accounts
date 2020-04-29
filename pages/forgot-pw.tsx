@@ -1,7 +1,7 @@
 import React from "react";
 import Router from "next/router";
 import Link from "next/link";
-import host from '../helpers/host';
+import {host} from '../helpers/host';
 import { throws } from "assert";
 import Nav from "../components/Nav";
 import AntiPrivateRoute from "../components/AntiPrivateRoute";
@@ -41,7 +41,7 @@ class Forgot extends React.Component {
   }
 
   handleSubmit(event: React.FormEvent) {
-    fetch(`${host}/reset-pw`, {
+    fetch(`${host.self}/reset-pw`, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json'

@@ -7,7 +7,7 @@ export const oauth2 = express.Router();
 // https://accounts.everse.dev/api/oauth2/authorize?client_id=157730590492196864&scope=linked_services%20email&redirect_uri=https%3A%2F%2Fblazerepo.com%2Fauth%2Feverse%2Fcallback
 
 oauth2.post('/authorize/verify', async (req, res) => {  
-  const client_id = req.body.client_id;
+  const { client_id } = jwt.verify(req.body.client_id, process.env.JWT_SECRET || "") as { client_id: number };
   if (!client_id) {
     //Missing client_id
     return res.status(400).json({
@@ -61,7 +61,7 @@ oauth2.post('/authorize/verify', async (req, res) => {
       //an invalid scope was found so we will return an error
       return res.status(400).json({
         "success": false,
-        "error": "Scope is allowed for application. Define in application panel to use scope."
+        "error": "Scope is not allowed for application. Define it in application panel to use scope."
       });
     }
   }
@@ -73,7 +73,15 @@ oauth2.post('/authorize/verify', async (req, res) => {
       "error": "Invalid redirect_uri"
     });
   }
+
+  console.log(application.scopes)
+
+  if (application.scopes.includes("repo")) {
+    application.scopes = application.scopes.filter((scope: string) => { return scope !== 'repo' });
+  }
   
+  console.log(application.scopes)
+
   return res.status(200).json({
     success: true,
     application: {
@@ -86,7 +94,6 @@ oauth2.post('/authorize/verify', async (req, res) => {
 });
 
 oauth2.post("/authorize", async (req, res) => {
-  console.log(req.headers.authorization)
   if (!req.headers.authorization) {
     return res.status(400).json({
       "success": false,
@@ -107,7 +114,7 @@ oauth2.post("/authorize", async (req, res) => {
   //here we are going to decode the user's token and validate the user before authenticating service to access user's data.
   
   try {
-    data = jwt.verify(token, process.env.JWT_SECRET || "") as { user_id: any; } | null
+    data = jwt.verify(token, process.env.JWT_SECRET || "") as { user_id: { id: any; }; } | null
     const users = await pg("accounts").where({id: data?.user_id || "" });
     if (!users[0]) {
       return res.status(400).json({
@@ -126,7 +133,7 @@ oauth2.post("/authorize", async (req, res) => {
     });
   }
 
-  const client_id = req.body.client_id;
+  const { client_id } = jwt.verify(req.body.client_id, process.env.JWT_SECRET || "") as { client_id: number };
   if (!client_id) {
     //Missing client_id
     return res.status(400).json({
@@ -204,11 +211,19 @@ oauth2.post("/authorize", async (req, res) => {
         scopes: scopes
       }).returning('id');
     }).then((id) => {
+      let token = "";
+      if (application.scopes.includes("repo")) {
+        token = jwt.sign({ 
+          user_id: data!.user_id
+        }, process.env.JWT_SECRET || "");
+      } else {
+        token = jwt.sign({ 
+          approve_id: id[0] || -1
+        }, process.env.JWT_SECRET || "");
+      }
       return res.status(200).json({
         success: true,
-        token: jwt.sign({ 
-          approve_id: id[0] || -1
-        }, process.env.JWT_SECRET || "")
+        token
       });
     });
   } catch(e) {

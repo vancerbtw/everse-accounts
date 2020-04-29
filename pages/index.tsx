@@ -1,7 +1,6 @@
 import React from "react";
 import Router from "next/router";
 import Link from "next/link";
-import host from '../helpers/host';
 import { throws } from "assert";
 
 class Login extends React.Component {

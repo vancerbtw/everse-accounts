@@ -92,6 +92,7 @@ class Authorization extends React.Component<AuthProps, AuthState> {
     
     //returning if the response is present and the success value of it is false because of error
     let mainView;
+    console.log(this.state.response)
 
     if (!error || !this.state.response?.error || !this.state.error) {
       buttons = (
@@ -126,6 +127,7 @@ class Authorization extends React.Component<AuthProps, AuthState> {
                 });
                 return;
               }
+              console.log("nice")
               window.location.href = `${this.props.querys.get("redirect_uri") || ""}?code=${data.token || ""}`
             });
           }}>
