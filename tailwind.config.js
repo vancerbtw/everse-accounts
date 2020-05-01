@@ -29,6 +29,10 @@ module.exports = {
               "screen-75": "75vh",
               "percent-110": "110%"
           },
+          translate: {
+            "-50": "-50%",
+            "50": "50%"
+          },
           height: {
             "screen-16": "16vh",
             "screen-33": "33vh",
@@ -37,6 +41,9 @@ module.exports = {
             "screen-45": "45vh",
             "screen-75": "75vh",
             "percent-110": "110%"
+          },
+          margin: {
+            "5p": "5%"
           },
           zIndex: {
               "z--1": -1

@@ -239,6 +239,11 @@ pg.schema.createTable("accounts", table => {
 
   //timestamp
   table.string("created_at");
+}).createTable("transactions", table => {
+  table.bigIncrements("transac_id");
+
+  table.integer("user_id", 11).unsigned();
+  table.integer("purchase_id", 11).unsigned();
 }).then();
 
 export default pg

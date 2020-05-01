@@ -1,6 +1,8 @@
 import React from "react";
 import { PrivateRoute } from "../../components/PrivateRoute";
 import { parse } from "path";
+import { withRouter } from 'next/router'
+
 
 type LinkProps = {
 
@@ -17,7 +19,7 @@ class Link extends React.Component<LinkProps, LinkState> {
     this.state = {
       newDevice: true,
       error: undefined
-    }
+    };
   }
 
   async componentDidMount() {

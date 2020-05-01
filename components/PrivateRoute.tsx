@@ -22,11 +22,10 @@ type PrivateProps = {
   response: AuthResponse,
   location: URLSearchParams
 };
-
 export function PrivateRoute(WrappedComponent: any) {
   return class extends Component<PrivateProps> {
     state = {
-      user: undefined
+      user: undefined,
     };
 
     componentDidMount() {

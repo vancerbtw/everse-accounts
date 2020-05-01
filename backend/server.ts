@@ -28,6 +28,11 @@ nextApp.prepare().then(async () => {
     app.use("/resources", resources);
     app.use("/api/oauth2", oauth2);
     app.use("/auth", localAuth);
+
+    app.get("/payments/purchase/:pkg", (req, res) => {
+        nextApp.render(req, res, "/payments/purchase/" + req.params.pkg);
+    });
+
     app.use("/payments", payments);
     app.use("/device", device);
     app.use("/sessions", sessions);
