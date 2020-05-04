@@ -14,10 +14,12 @@ import { resources } from "./routes/oauth_resources/resources";
 import { payments } from "./routes/payments/Payments";
 import { device } from "./routes/cydia_authentication/Device";
 import { sessions } from "./routes/cydia_authentication/Sessions";
+import { stripeRoute } from "./routes/stripe/Stripe";
 
 app.use(cors());
 app.set('trust proxy', true);
-app.use(bodyParser.json());
+
+app.use('/stripe', stripeRoute).use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('../public'))
 

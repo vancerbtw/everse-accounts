@@ -129,7 +129,10 @@ pg.schema.createTable("accounts", table => {
   table.integer('processor_id');
 
   //if the purchase is complete or not
-  table.boolean('complete').defaultTo(true);
+  table.boolean('complete').defaultTo(false);
+
+  //if the payment has been processed to the developer yet or not
+  table.boolean('processed').defaultTo(false);
 
   table.timestamp('created_at');
 }).createTable("discounts", table => {
@@ -244,6 +247,16 @@ pg.schema.createTable("accounts", table => {
 
   table.integer("user_id", 11).unsigned();
   table.integer("purchase_id", 11).unsigned();
+
+  table.string("transac_identifier");
+
+  table.decimal("amount");
+}).createTable('inventories', table => {
+  table.bigIncrements("inv_id");
+  table.integer("user_id", 11).unsigned();
+  table.specificType('items', 'text ARRAY');
 }).then();
+
+
 
 export default pg

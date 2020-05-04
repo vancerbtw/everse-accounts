@@ -143,7 +143,7 @@ const ElementsForm: React.FunctionComponent<{
 
   return (
     <>
-      <form className="h-full" onSubmit={handleSubmit}>
+      <form className="h-full flex flex-col" onSubmit={handleSubmit}>
           <CardElement
             onChange={e => {
               if (e.error) {
@@ -154,7 +154,16 @@ const ElementsForm: React.FunctionComponent<{
               }
             }}
           />
-        <button className="px-4 py-2 rounded-md text-white" style={{ backgroundColor: "rgb(126, 138, 243)" }}>Purchase</button>
+          <div className="flex w-full justify-center mt-2"> 
+            <button className="px-10 py-1 rounded-md text-white bg-gray-400 text-gray-800 opacity-50 font-medium text-md shadow-md transform transition-all duration-200 outline-none ease-in-out hover:scale-105">Purchase</button>
+          </div>
+          <div className="flex w-full justify-center mt-2"> 
+            <button className="px-10 py-1 rounded-md text-white bg-gray-400 text-gray-800 opacity-50 font-medium text-md shadow-md transform transition-all duration-200 outline-none ease-in-out hover:scale-105" onClick={() => {
+              props.super.setState({
+                step: 1
+              });
+            }}>Back</button>
+          </div>
       </form>
     </>
   );

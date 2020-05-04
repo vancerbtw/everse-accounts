@@ -29,24 +29,48 @@ payments.post('/v1/payment_intents', verify, async (req, res) => {
 
   if (!item) return res.status(400).json({ success: false, error: "Invalid Item" });
 
+  const purchase = await pg("purchases").where({ 'purchases.user_id': req.user?.id, 'purchases.purchase_item': item.id}).select().innerJoin("transactions", "purchases.id", "transactions.purchase_id").first();
+
+  if (purchase != undefined) {
+    if (purchase.complete) {
+      //package has previously been successfully completed 
+      return res.status(400).json({ success: false, error: "Purchase has already been made and completed on this account for this item" });
+    }
+
+    //purchase is already pending
+    if (purchase.processor_id === "1") {
+      //previous pending purchase is a stripe purchase
+      await stripe.paymentIntents.cancel(purchase.transac_identifier);
+
+      await pg("purchases").where({ user_id: req.user?.id, purchase_item: item.id}).delete();
+      await pg("transactions").where({ transac_identifier: purchase.transac_identifier}).delete();
+    }
+  }
+
   const paymentIntent = await stripe.paymentIntents.create({
     amount: formatAmountForStripe(item.price, "usd"),
     currency: 'usd',
     payment_method_types: ['card'],
   });
 
-  await pg("purchases").insert({
+  const purchaseId: string = await pg("purchases").insert({
     user_id: req.user?.id,
     purchase_item: item.id,
     developer_id: item.developer,
-    processor_id: '1',
-    complete: false
-  })
+    processor_id: '1'
+  }).returning("id");
 
-  console.log(paymentIntent)
+  console.log(`purchase: ${purchaseId}`)
+
+  await pg("transactions").insert({
+    user_id: req.user?.id,
+    purchase_id: parseInt(purchaseId),
+    transac_identifier: paymentIntent.id,
+    amount: paymentIntent.amount
+  });
 
   return res.status(200).json({client_secret: paymentIntent.client_secret});
-})
+});
 
 payments.post('/initialize/paypal', async (req, res) => {
   if (!req.headers.authorization) {
@@ -136,3 +160,29 @@ payments.post('/initialize/paypal', async (req, res) => {
   });
 });
 
+payments.post("/purchase/check", verify, async (req, res) => {
+  if (!req.body.item) return res.status(400).json({ success: false, error: "Item: 'item' is missing on Request Body" });
+  let inventory = await pg("inventories").select().where({ user_id: req.user?.id }).first();
+
+  if (!inventory) {
+    return res.status(200).json({
+      success: true
+    });
+  }
+
+  let item = await pg("packages").select().where({ identifier: req.body.item, pending: false, active: true}).first();
+
+  if (!item) {
+    return res.status(400).json({ success: false, error: "Package does not exist or it is disabled." });
+  }
+
+  if (!item.paid) {
+    return res.status(400).json({ success: false, error: "Package is not a paid package." });
+  }
+
+  if (inventory.items.includes(req.body.item)) {
+    return res.status(400).json({ success: false, error: `User already owns: '${item.name}'` })
+  }
+
+  return res.status(200).json({ success: true });
+});

@@ -8,10 +8,13 @@
   object-fit: fill;
 }
 
+.outline-none {
+  outline: 0 !important;
+}
+
 input,
 .StripeElement {
   display: block;
-  margin: 10px 0 15px 0;
   max-width: 500px;
   padding: 10px 14px;
   font-size: 1em;
@@ -20,7 +23,7 @@ input,
   border: 0;
   outline: 0;
   border-radius: 4px;
-  background: #f1f1f1;
+  background: #edf2f7;
   margin-right: .75rem;
 }
 
@@ -47,6 +50,19 @@ input:focus,
   width: 1em;
   height: 1em;
   border: 2px solid #718096;
+  border-radius: 9999px;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  animation: spinAround 500ms infinite linear;
+}
+
+.loader::after {
+  content: '';
+  position: absolute !important;
+  display: block;
+  width: 6em;
+  height: 6em;
+  border: 5px solid #718096;
   border-radius: 9999px;
   border-right-color: transparent;
   border-top-color: transparent;

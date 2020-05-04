@@ -11,7 +11,7 @@ const stripePromise = loadStripe("pk_test_QGWdqKVF871Pq54MtPolpCt8");
 
 const Stripe: React.FunctionComponent<Props> = ({
   children,
-  title = 'TypeScript Next.js Stripe Example'
+  title = 'Purchase'
 }) => (
   <Elements stripe={stripePromise}>
     <Head>
@@ -30,7 +30,7 @@ const Stripe: React.FunctionComponent<Props> = ({
         content="https://nextjs-typescript-react-stripe-js.now.sh/social_card.png"
       />
     </Head>
-    <div className="container">
+    <div className="container flex-grow">
       {children}
     </div>
   </Elements>

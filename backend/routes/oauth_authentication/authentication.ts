@@ -1,6 +1,7 @@
 import express from 'express';
 import pg from '../../db/pg';
 import jwt from 'jsonwebtoken';
+import { mailer } from "../../Helpers/Mail";
 
 export const oauth2 = express.Router();
 
@@ -113,6 +114,8 @@ oauth2.post("/authorize", async (req, res) => {
 
   //here we are going to decode the user's token and validate the user before authenticating service to access user's data.
   
+  let user:  { email: string } | null = null;
+
   try {
     data = jwt.verify(token, process.env.JWT_SECRET || "") as { user_id: { id: any; }; } | null
     const users = await pg("accounts").where({id: data?.user_id || "" });
@@ -123,6 +126,8 @@ oauth2.post("/authorize", async (req, res) => {
         "error": "Invalid Token Body"
       });
     }
+
+    user = users[0];
   } catch(e) {
     //token could not be successfully decoded
     console.log(e);
@@ -221,6 +226,14 @@ oauth2.post("/authorize", async (req, res) => {
           approve_id: id[0] || -1
         }, process.env.JWT_SECRET || "");
       }
+
+      mailer.sendMail({
+        from: "no-reply@server.com",
+        to: user?.email || "",
+        subject: "OAuth Authorization",
+        text: "Your account was used to authorize an OAuth2 Application"
+      });
+
       return res.status(200).json({
         success: true,
         token
