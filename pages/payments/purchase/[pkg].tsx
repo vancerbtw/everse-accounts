@@ -60,8 +60,7 @@ type AuthState = {
   stripePending: Boolean,
   stripeError: string | null,
   complete: Boolean,
-  step: number,
-  animatingStep: Boolean
+  step: number
 }
 
 
