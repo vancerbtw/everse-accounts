@@ -52,8 +52,6 @@ class View extends React.Component<Props, State> {
 
     render() {
         const {profilePictureURL, username, email, authCode} = this.state;
-        console.log(this.state.origEmail)
-        console.log(this.state.email)
         const unsavedChanges = (this.state.origEmail !== this.state.email) || (this.state.origUsername !== this.state.username)
         return (
             <div className={"h-screen w-screen bg-light flex justify-center items-center"}>
@@ -63,8 +61,12 @@ class View extends React.Component<Props, State> {
                             <div id={"pwd"} className={"flex items-center w-1/2 bg-white shadow rounded-xl p-4 my-4"}>
                                 <span className="text-sm font-semibold mr-auto">You have unsaved changes.</span>
 
-                                <button className={"px-3 py-1 rounded-md bg-red-600 text-white text-sm font-medium text-center mx-2"}>DISCARD</button>
-                                <button className={"px-3 py-1 rounded-md bg-blue-400 text-white text-sm font-medium text-center mx-2"}>SAVE</button>
+                                <button className={"px-3 py-1 rounded-md bg-red-600 text-white text-sm font-medium text-center mx-2"} style={{
+                                    pointerEvents: "all"
+                                }}>DISCARD</button>
+                                <button className={"px-3 py-1 rounded-md bg-blue-400 text-white text-sm font-medium text-center mx-2"} style={{
+                                    pointerEvents: "all"
+                                }}>SAVE</button>
                             </div>
                         </div>
                     )
@@ -86,7 +88,7 @@ class View extends React.Component<Props, State> {
                             <div className={"relative"} 
                                     onMouseEnter={_ => this.setState({ picHover: true })}
                                     onMouseLeave={_ => this.setState({ picHover: false })}>
-                                <img alt={"profile picture"}
+                                <img alt={"profile picture shadow-tiny"}
                                      className={" overflow-hidden rounded-full max-w-64 max-h-64 shadow-2xl object-cover mb-2 transition-all duration-100 ease-in-out"}
                                      src={profilePictureURL} style={{ filter: this.state.picHover ? "blur(1rem)": ""}}/>
                                 <div
@@ -122,7 +124,7 @@ class View extends React.Component<Props, State> {
                                 </div>
                             </div>
                         </div>
-                        <div id={"pwd"} className={"flex flex-col bg-white shadow rounded-xl p-6 my-4"}>
+                        <div id={"pwd"} className={"flex flex-col bg-white shadow-tiny rounded-xl p-6 my-4"}>
                             <h2 className={"text-lg font-semibold mb-2"}>Password & Two-Factor Authentication</h2>
                             <div className={"flex flex-col"}>
                                 <div>
