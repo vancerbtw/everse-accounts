@@ -1,12 +1,9 @@
 import express, { response } from 'express';
 import pg from '../../db/pg';
-import jwt from 'jsonwebtoken';
-import next from "next";
-import Stripe from 'stripe'
+import Stripe from 'stripe';
 import bodyParser from "body-parser";
 
 const dev = process.env.NODE_ENV === "development";
-const nextApp = next({ dev });
 const stripe = new Stripe(process.env.STRIPE_SECRET as string, {
   apiVersion: "2020-03-02"
 });
@@ -22,6 +19,8 @@ interface Discount {
   packages: string[];
   active: boolean;
 }
+
+
 
 stripeRoute.post('/v1/callback', async (req, res) => {
   //now we check what stripe is telling us (the type of event) 

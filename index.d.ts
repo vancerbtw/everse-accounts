@@ -6,6 +6,8 @@ declare namespace Express {
     developer: Boolean;
     verified: Boolean;
     disabled: Boolean;
+    email_id?: number;
+    icon: string | undefined;
   }
 
   export interface Request {

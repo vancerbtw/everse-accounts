@@ -25,6 +25,8 @@ interface Discount {
 }
 
 payments.post('/v1/payment_intents', verify, async (req, res) => {
+  if (!req.body.pkg) return res.status(400).json({ success: false, error: "Missing 'pkg' Item on Request" });
+
   let item = await pg("packages").select().where({ identifier: req.body.pkg, paid: true }).first();
 
   if (!item) return res.status(400).json({ success: false, error: "Invalid Item" });

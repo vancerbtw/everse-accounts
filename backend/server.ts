@@ -15,6 +15,7 @@ import { payments } from "./routes/payments/Payments";
 import { device } from "./routes/cydia_authentication/Device";
 import { sessions } from "./routes/cydia_authentication/Sessions";
 import { stripeRoute } from "./routes/stripe/Stripe";
+import { email as emailV1 } from "./routes/email/v1";
 
 app.use(cors());
 app.set('trust proxy', true);
@@ -38,8 +39,9 @@ nextApp.prepare().then(async () => {
     app.use("/payments", payments);
     app.use("/device", device);
     app.use("/sessions", sessions);
+    app.use("/email/v1", emailV1);
 
-    app.get(['/device/auth', '/iPhoneX.png', '/oauth2/authorize', '/homeBanner.png', '/glitch.png', '/everseBanner.png', '/forgotBanner.png', '/authorizeBanner.png', '/forgot-pw', '/', '/_next/*', '/login', "/logout", "/register"], (req, res) => {
+    app.get(['/device/auth', '/iPhoneX.png', '/oauth2/authorize', '/homeBanner.png', '/glitch.png', '/everseBanner.png', '/forgotBanner.png', '/authorizeBanner.png', '/forgot-pw', '/', '/_next/*', '/login', "/logout", "/register", "/developer/*"], (req, res) => {
         return handle(req, res);
     });
 

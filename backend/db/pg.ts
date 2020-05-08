@@ -255,6 +255,38 @@ pg.schema.createTable("accounts", table => {
   table.bigIncrements("inv_id");
   table.integer("user_id", 11).unsigned();
   table.specificType('items', 'text ARRAY');
+}).createTable('emails', table => {
+  table.bigIncrements("email_id");
+  table.integer("user_id", 11).unsigned();
+  table.string('display');
+  table.boolean('disabled');
+}).createTable('messages', table => {
+  table.bigIncrements("message_id");
+  table.integer("email_id", 11).unsigned();
+
+  //if the email is being sent by a user on our system
+  table.boolean('sent');
+
+  table.string("external");
+
+  table.string('subject');
+  table.text('body');
+  table.boolean('is_reply');
+
+  table.text("external_display");
+
+  table.boolean('read');
+  table.boolean('starred');
+
+  //the email that this email is replying to if is_reply is true
+  table.integer("parent", 11).unsigned();
+
+  //flags for emails
+  table.text('flags');
+
+  table.text("message_identifier");
+
+  table.timestamp("time").defaultTo(pg.fn.now());
 }).then();
 
 

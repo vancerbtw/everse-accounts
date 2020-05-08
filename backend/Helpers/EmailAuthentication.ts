@@ -2,7 +2,7 @@ import pg from "../db/pg";
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction} from "express";
 
-export default async function verify(req: Request, res: Response, next: NextFunction) {
+export default async function emailAuth(req: Request, res: Response, next: NextFunction) {
   if (!req.headers.authorization) {
     return res.status(400).json({
       success: false,
@@ -35,6 +35,22 @@ export default async function verify(req: Request, res: Response, next: NextFunc
         error: "User is disabled"
       });
     }
+
+    if (!user.developer) {
+      return res.status(400).json({
+        success: false,
+        error: "User is not a developer"
+      });
+    }
+
+    let everseEmail = await pg("emails").select().where({ user_id: user.id }).first();
+
+    if (!everseEmail) {
+      return res.status(400).json({
+        success: false,
+        error: "User does not have an everse email setup"
+      });
+    }
     
     req.user = {
       name: user.name,
@@ -42,9 +58,9 @@ export default async function verify(req: Request, res: Response, next: NextFunc
       developer: user.developer,
       verified: user.verified,
       disabled: user.disabled,
-      icon: user.icon,
-      id: user.id
-    }
+      id: user.id,
+      email_id: everseEmail.email_id
+    };
 
     next();
   } catch(e) {
