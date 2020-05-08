@@ -2,6 +2,8 @@ import express from "express";
 import next from "next";
 import bodyParser from "body-parser";
 import cors from "cors";
+import accountsApp from "./Accounts/index";
+
 const dev = process.env.NODE_ENV === "development";
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
