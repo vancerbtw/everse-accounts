@@ -50,7 +50,7 @@
     "react-dom": "16.13.1",
     "react-router-dom": "^5.1.2",
     "tailwindcss": "^1.2.0",
-    "typescript": "^3.9.0-beta"
+    "typescript": "^3.9.0-beta",
     "cors": "^2.8.5",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
