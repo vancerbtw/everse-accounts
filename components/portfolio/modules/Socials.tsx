@@ -26,7 +26,7 @@ class Socials extends React.Component {
                   <SocialEdit updateState={(content: any) => {
                       this.props.module.socials![index] = content;
                       this.props.updateState(this.props.module);
-                  }} social={this.props.module.socials!} key={index} />
+                  }} social={this.props.module.socials![index]} key={index} />
                 );
               }))}
               <SocialEdit add={true} updateState={this.props.updateState}/>

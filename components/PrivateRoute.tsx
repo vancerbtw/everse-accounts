@@ -52,15 +52,9 @@ export function PrivateRoute(WrappedComponent: any) {
       const {...propsWithoutAuth } = this.props;
       if (this.state.user) {
         return <WrappedComponent user={this.state.user} querys={new URLSearchParams(window.location.search)} {...propsWithoutAuth} />;
-<<<<<<< HEAD
-      } else {
-        return <div></div>
-      }
-=======
       }
 
       return <div></div>;
->>>>>>> current-accounts
     }
   };
 }

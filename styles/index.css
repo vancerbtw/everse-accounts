@@ -1,3 +1,6 @@
+/* global */
+@import url('https://rsms.me/inter/inter.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -378,10 +381,11 @@ email-search::placeholder {
 }
 
 /* email editor stuff */
-
-
-
-/* global */
-html {
+* { 
   font-family: 'Inter', sans-serif !important;
+}
+@supports (font-variation-settings: normal) {
+  * { 
+    font-family: 'Inter var', sans-serif;
+  }
 }
