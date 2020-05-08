@@ -123,6 +123,7 @@ localAuth.post('/token/verify', async (req, res) => {
     const user = users[0];
     return res.status(200).json({
       success: true,
+      id: user.id,
       name: user.username,
       email: user.email,
       developer: user.developer,

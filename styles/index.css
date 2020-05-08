@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://rsms.me/inter/inter.css');
+html { font-family: 'Inter', sans-serif; }
+@supports (font-variation-settings: normal) {
+  html { font-family: 'Inter var', sans-serif; }
+}
+
 .in-fullscreen {
   -webkit-animation-fill-mode: none;
   animation-fill-mode: none;
@@ -379,3 +385,9 @@ email-search::placeholder {
 
 /* email editor stuff */
 
+
+
+/* global */
+html {
+  font-family: 'Inter', sans-serif !important;
+}

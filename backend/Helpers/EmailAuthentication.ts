@@ -59,7 +59,8 @@ export default async function emailAuth(req: Request, res: Response, next: NextF
       verified: user.verified,
       disabled: user.disabled,
       id: user.id,
-      email_id: everseEmail.email_id
+      email_id: everseEmail.email_id,
+      icon: user.icon
     };
 
     next();
