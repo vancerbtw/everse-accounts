@@ -11,5 +11,6 @@
     "include": [
         "./backend/*.ts",
         "./backend/*/*.ts"
-    ]
+    ],
+    "files": [ "./index.d.ts" ]
 }

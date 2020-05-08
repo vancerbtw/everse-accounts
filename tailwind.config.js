@@ -14,7 +14,8 @@ module.exports = {
               card: "#e2e1e0",
               discord: "#2C2F33",
               twitter: "#1DA1F2",
-              dim: "#00000010"
+              dim: "#00000010",
+              pastelGreen: "#43b581"
           },
           borderRadius: {
               xl: "2rem",
@@ -28,8 +29,24 @@ module.exports = {
               "screen-75": "75vh",
               "percent-110": "110%"
           },
+          translate: {
+            "-50": "-50%",
+            "50": "50%"
+          },
+          height: {
+            "screen-16": "16vh",
+            "screen-33": "33vh",
+            "screen-50": "50vh",
+            "screen-40": "40vh",
+            "screen-45": "45vh",
+            "screen-75": "75vh",
+            "percent-110": "110%"
+          },
+          margin: {
+            "5p": "5%"
+          },
           zIndex: {
-              "z--1": "z-index: -1;"
+              "z--1": -1
           },
           boxShadow: {
               "card": "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",

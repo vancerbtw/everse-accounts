@@ -1,7 +1,7 @@
 import { NextPageContext } from "next";
 import Router from 'next/router';
 import React, { Component } from "react";
-import host from '../helpers/host';
+import {host} from '../helpers/host';
 
 interface AuthResponse {
   success: Boolean,
@@ -22,15 +22,14 @@ type PrivateProps = {
   response: AuthResponse,
   location: URLSearchParams
 };
-
 export function PrivateRoute(WrappedComponent: any) {
   return class extends Component<PrivateProps> {
     state = {
-      user: undefined
+      user: undefined,
     };
 
     componentDidMount() {
-      fetch(`${host}/auth/token/verify`, {
+      fetch(`${host.self}/auth/token/verify`, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         headers: {
           'Content-Type': 'application/json',
@@ -40,7 +39,7 @@ export function PrivateRoute(WrappedComponent: any) {
       }).then(res => res.json()).then((data) => {
         if (!data.success) {
           localStorage.setItem("token", "");
-          return Router.push('/login');
+          return Router.push(`/login?redirect=${encodeURIComponent(window.location.href)}`);
         }
         this.setState({
           user: data
@@ -53,9 +52,15 @@ export function PrivateRoute(WrappedComponent: any) {
       const {...propsWithoutAuth } = this.props;
       if (this.state.user) {
         return <WrappedComponent user={this.state.user} querys={new URLSearchParams(window.location.search)} {...propsWithoutAuth} />;
+<<<<<<< HEAD
       } else {
         return <div></div>
       }
+=======
+      }
+
+      return <div></div>;
+>>>>>>> current-accounts
     }
   };
 }

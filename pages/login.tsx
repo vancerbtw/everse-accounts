@@ -1,7 +1,7 @@
 import React from "react";
 import Router from "next/router";
 import Link from "next/link";
-import host from '../helpers/host';
+import {host} from '../helpers/host';
 import { throws } from "assert";
 import Nav from "../components/Nav";
 import AntiPrivateRoute from "../components/AntiPrivateRoute";
@@ -47,7 +47,7 @@ class Login extends React.Component {
   }
 
   handleSubmit(event: React.FormEvent) {
-    fetch(`${host}/auth/login`, {
+    fetch(`${host.self}/auth/login`, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json'
@@ -68,7 +68,12 @@ class Login extends React.Component {
         success: "Logged In"
       });
       localStorage.setItem("token", data.token || "");
-      Router.push('/');
+      let redirect = '/'; window.location.href
+      const queryParams = new URLSearchParams(window.location.search);
+      if (queryParams.get('redirect')) {
+        redirect = queryParams.get('redirect') || "";
+      }
+      window.location.href = redirect
     })
     .catch((e) => {
       console.log(e)
@@ -89,10 +94,10 @@ class Login extends React.Component {
     if (this.state.success) {
       error = <h1 className="text-red">{this.state.success}</h1>
     }
-    
+
     return (
       <div className="flex flex-col h-screen">
-        <div className="flex items-center justify-between flex-wrap p-6 h-24 w-full bg-gray-200">
+        <div className="absolute flex items-center justify-between flex-wrap p-6 h-24 w-full bg-gray-200">
             <div className="flex items-center flex-shrink-0 text-black mr-6 cursor-pointer dark:text-gray-600" onClick={() => window.location.href = "https://accounts.everse.dev"}>
 
                 <svg className="fill-current text-black dark:text-gray-600 h-8 w-8 mr-2" xmlns="http://www.w3.org/2000/svg" width="512"
@@ -107,7 +112,7 @@ class Login extends React.Component {
           <div className="sm:max-w-xl md:max-w-2xl w-full m-auto">
             <div className="flex items-stretch bg-white rounded-lg shadow-lg overflow-hidden border-t-4 border-indigo-500 sm:border-0">
               <div className="flex hidden overflow-hidden relative sm:block w-5/12 md:w-6/12 bg-gray-600 text-gray-300 pb-4 bg-cover bg-center">
-              <video className="w-full h-auto absolute m-0 z--1" autoPlay muted loop src="https://video.twimg.com/ext_tw_video/1244275456330870784/pu/vid/720x720/x7dywQnKfB6VNfV4.mp4?tag=10" />
+              <video className="h-percent-110 absolute m-0 z--1 object-fill" autoPlay muted loop src="https://video.twimg.com/ext_tw_video/1244275456330870784/pu/vid/720x720/x7dywQnKfB6VNfV4.mp4?tag=10" />
                 <div className="flex-1 absolute top-0 text-white p-5">
                 <svg className="fill-current text-black dark:text-white h-12 w-12" xmlns="http://www.w3.org/2000/svg" width="512"
                          height="512" viewBox="0 0 512 512">
@@ -127,7 +132,7 @@ class Login extends React.Component {
               </div>
               <div className="flex-1 p-6 sm:p-10 sm:py-12 sm:pb-6">
                 <h3 className="text-xl text-gray-700 font-bold mb-6">Login <span className="text-lg text-gray-500 font-normal">to your Everse account</span></h3>
-                <input type="text"  value={this.state.email} onChange={this.emailChange} className="px-3 w-full py-2 bg-gray-200 border border-gray-200 rounded focus:border-gray-400 focus:outline-none focus:bg-white mb-4" placeholder="Username" />
+                <input type="text"  value={this.state.email} onChange={this.emailChange} className="px-3 w-full py-2 bg-gray-200 border border-gray-200 rounded focus:border-gray-400 focus:outline-none focus:bg-white mb-4" placeholder="Email" />
                   <input type="password" value={this.state.password} onChange={this.passwordChange} className="px-3 w-full py-2 bg-gray-200 border border-gray-200 rounded focus:border-gray-400 focus:outline-none focus:bg-white mb-4" placeholder="Password" />
                 
                 <div className="flex flex-wrap items-center">

@@ -26,13 +26,13 @@ localAuth.post('/register', async (req, res) => {
         error: "User is already registered with email"
       });
   
-      const id = await pg('accounts').insert({ username: req.body.username, email: req.body.email, password: await argon2.hash(req.body.password1)}).returning('id');
+      const id = await pg('accounts').insert({ username: req.body.username, email: req.body.email, password: await argon2.hash(req.body.password1), email_token: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)}).returning('id');
   
       return res.status(200).json({
         success: true,
         token: jwt.sign({ 
-          user_id: id
-        }, process.env.JWT_SECRET)
+          user_id: id[0]
+        }, process.env.JWT_SECRET || "")
       });
   
     } catch(e) {
@@ -76,7 +76,7 @@ localAuth.post("/login", async (req, res) => {
         "success": true,
         "token": jwt.sign({ 
           user_id: user.id
-        }, process.env.JWT_SECRET)
+        }, process.env.JWT_SECRET || "")
       });
     } else {
       //passwords do not match
@@ -112,8 +112,8 @@ localAuth.post('/token/verify', async (req, res) => {
   const token = req.headers.authorization.split(" ")[1]
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET); 
-    const users = await pg("accounts").where({id: decoded.user_id });
+    const decoded: { user_id?: string } = jwt.verify(token, process.env.JWT_SECRET || "") as {  user_id?: string  }; 
+    const users = await pg("accounts").where({id: decoded.user_id || "" });
     if (!users[0]) {
       return res.status(400).json({
         "success": false,
@@ -123,11 +123,54 @@ localAuth.post('/token/verify', async (req, res) => {
     const user = users[0];
     return res.status(200).json({
       success: true,
+      id: user.id,
       name: user.username,
       email: user.email,
+      developer: user.developer,
       verified: user.verified,
       disabled: user.disabled
-    })
+    });
+  } catch(e) {
+    console.log(e);
+    return res.status(400).json({
+      "success": false,
+      "error": "Error decoding token"
+    });
+  }
+});
+
+localAuth.post('/set/developer', async (req, res) => {
+  if (!req.headers.authorization) {
+    return res.status(400).json({
+      "success": false,
+      "error": "Missing Authorization Header"
+    });
+  }
+  
+  if (req.headers.authorization.split(" ")[0] !== "Bearer" || req.headers.authorization.split(" ").length !== 2) {
+    return res.status(400).json({
+      "success": false,
+      "error": "Invalid Authorization Header Format, Please use 'Bearer {token}' format."
+    });
+  }
+
+  const token = req.headers.authorization.split(" ")[1]
+
+  try {
+    const decoded: { user_id?: string } = jwt.verify(token, process.env.JWT_SECRET || "") as {  user_id?: string  }; 
+    const user = await pg("accounts").where({id: decoded.user_id || "" }).first();
+    if (!user) {
+      return res.status(400).json({
+        "success": false,
+        "error": "Invalid Token Body"
+      });
+    }
+    
+    pg("accounts")
+      .update({developer: true})
+      .where({id: user.id})
+      .then(u => res.status(!!u?200:404).json({success:!!u}))
+      .catch(e => res.status(500).json(e));
   } catch(e) {
     console.log(e);
     return res.status(400).json({

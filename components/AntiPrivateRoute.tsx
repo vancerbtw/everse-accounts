@@ -1,7 +1,6 @@
 import { NextPageContext } from "next";
 import Router from 'next/router';
 import React, { Component } from "react";
-import host from '../helpers/host';
 
 interface AuthResponse {
   success: Boolean,
