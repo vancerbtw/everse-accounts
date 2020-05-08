@@ -15,7 +15,7 @@
   outline: 0 !important;
 }
 
-input,
+/* input,
 .StripeElement {
   display: block;
   max-width: 500px;
@@ -44,7 +44,7 @@ input:focus,
 .StripeElement.IdealBankElement,
 .StripeElement.PaymentRequestButton {
   padding: 0;
-}
+} */
 
 .spinner::after {
   content: '';
@@ -61,6 +61,10 @@ input:focus,
 
 email-search::placeholder {
   color: #ffffff;
+}
+
+input::placeholder {
+  color: black;
 }
 
 .loader::after {
@@ -388,4 +392,70 @@ email-search::placeholder {
   * { 
     font-family: 'Inter var', sans-serif;
   }
+}
+
+/*Markdown Style*/
+h1 {
+  font-size: 18pt;
+}
+a {
+  color: #2CB1BE; /*fallback for IE*/
+  color: var(--tint-color);
+  text-decoration: none;
+}
+
+body {
+  margin: 0;
+}
+
+.obscure {
+  filter: blur(10px);
+  transition: 300ms filter ease;
+}
+
+.obscure:hover {
+  filter: none;
+}
+
+#2faInput {
+  -webkit-appearance: none;
+}
+
+.pfp-wrapper {
+  position: relative;
+  max-width: 8rem;
+  width: 100%;
+}
+
+.pfp-wrapper:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.pfp-wrapper * {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.children-mr-8 * {
+  margin-right: 2rem;
+}
+
+.contentWrapper {
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #FFFFFF; /*fallback for IE*/
+  background-color: var(--bg-color);
+}
+.mainWrapper {
+  max-width: 100vw;
+  overflow: hidden;
+}
+
+.gradient-wave {
+  transform: rotate(180deg);
 }
